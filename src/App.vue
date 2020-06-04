@@ -7,8 +7,19 @@
 
 <script>
 import TheNavbar from "./components/TheNavbar";
+import { guitarsRef } from "./configs/firebase";
 
 export default {
+  created() {
+    this.setFirebaseEvents();
+  },
+  methods: {
+    setFirebaseEvents() {
+      guitarsRef.on("child_added", snapshot => {
+        this.$store.dispatch("addGuitar", snapshot.val());
+      });
+    }
+  },
   components: {
     TheNavbar
   }
