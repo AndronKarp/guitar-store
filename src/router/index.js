@@ -8,6 +8,12 @@ const routes = [
     path: "/",
     name: "Home",
     component: () => import("../pages/PageHome")
+  },
+  {
+    path: "/:path",
+    name: "GuitarDescription",
+    props: true,
+    component: () => import("../pages/PageGuitarDescription")
   }
 ];
 
