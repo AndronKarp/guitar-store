@@ -13,7 +13,7 @@
         :img-alt="guitar.model"
       >
         <b-card-title>{{ guitar.brand }} {{ guitar.model }}</b-card-title>
-        <b-card-text>${{ guitar.price }}</b-card-text>
+        <b-card-text>{{ guitar.price | currency }}</b-card-text>
       </b-card>
     </router-link>
   </b-col>
