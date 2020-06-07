@@ -1,6 +1,6 @@
 <template>
   <b-navbar type="dark" variant="info">
-    <b-navbar-brand to="/">Guitar Store</b-navbar-brand>
+    <b-navbar-brand :to="{ name: 'Home' }">Guitar Store</b-navbar-brand>
 
     <b-navbar-toggle target="nav-collapse"></b-navbar-toggle>
 
@@ -10,6 +10,12 @@
       </b-navbar-nav>
 
       <b-navbar-nav class="ml-auto">
+        <b-nav-item
+          class="d-flex align-items-center"
+          right
+          :to="{ name: 'ShoppingCart' }"
+          ><b-icon icon="cart4"></b-icon
+        ></b-nav-item>
         <b-nav-item-dropdown right>
           <template v-slot:button-content>
             <b-avatar variant="primary" text="JD"></b-avatar>

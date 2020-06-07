@@ -14,6 +14,11 @@ const routes = [
     name: "GuitarDescription",
     props: true,
     component: () => import("../pages/PageGuitarDescription")
+  },
+  {
+    path: "/cart",
+    name: "ShoppingCart",
+    component: () => import("../pages/PageShoppingCart")
   }
 ];
 
