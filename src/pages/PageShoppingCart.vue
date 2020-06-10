@@ -1,15 +1,12 @@
 <template>
-  <b-container fluid class="mt-3">
-    <b-table outlined hover striped :items="cart" :fields="fields">
-      <template v-slot:cell(index)="data">
-        {{ data.index + 1 }}
-      </template>
-      <template v-slot:cell(price)="data">
-        {{ data.item.price | currency }}
-      </template>
-    </b-table>
-    <p>Total: {{ cartTotal | currency }}</p>
-  </b-container>
+  <b-table outlined hover striped :items="cart" :fields="fields">
+    <template v-slot:cell(index)="data">
+      {{ data.index + 1 }}
+    </template>
+    <template v-slot:cell(price)="data">
+      {{ data.item.price | currency }}
+    </template>
+  </b-table>
 </template>
 
 <script>

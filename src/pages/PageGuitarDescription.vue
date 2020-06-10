@@ -1,5 +1,5 @@
 <template>
-  <b-container fluid class="d-flex mt-3">
+  <b-container fluid class="d-flex">
     <img
       :src="require(`../assets/${guitar.image}`)"
       :alt="guitar.model"

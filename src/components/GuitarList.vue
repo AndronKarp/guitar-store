@@ -1,13 +1,11 @@
 <template>
-  <b-container fluid class="mt-3">
-    <b-row cols-xl="4" cols-lg="3" cols-md="2" cols="1">
-      <GuitarListItem
-        v-for="(guitar, index) in guitars"
-        :key="index"
-        :guitar="guitar"
-      />
-    </b-row>
-  </b-container>
+  <b-row cols-xl="4" cols-lg="3" cols-md="2" cols="1">
+    <GuitarListItem
+      v-for="(guitar, index) in guitars"
+      :key="index"
+      :guitar="guitar"
+    />
+  </b-row>
 </template>
 
 <script>
