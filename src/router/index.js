@@ -1,5 +1,6 @@
 import Vue from "vue";
 import VueRouter from "vue-router";
+import Home from "../pages/PageHome";
 
 Vue.use(VueRouter);
 
@@ -7,18 +8,24 @@ const routes = [
   {
     path: "/",
     name: "Home",
-    component: () => import("../pages/PageHome")
+    component: Home
   },
   {
     path: "/:path",
     name: "GuitarDescription",
     props: true,
-    component: () => import("../pages/PageGuitarDescription")
+    component: () =>
+      import(
+        /* webpackChunkName: "guitar-description" */ "../pages/PageGuitarDescription"
+      )
   },
   {
     path: "/cart",
     name: "ShoppingCart",
-    component: () => import("../pages/PageShoppingCart")
+    component: () =>
+      import(
+        /* webpackChunkName: "shopping-cart" */ "../pages/PageShoppingCart"
+      )
   }
 ];
 
