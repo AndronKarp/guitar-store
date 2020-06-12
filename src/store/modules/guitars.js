@@ -1,14 +1,14 @@
 export default {
   state: {
     guitars: [],
-    areGuitarsLoaded: false
+    areGuitarsFetched: false
   },
   getters: {
     guitars(state) {
       return state.guitars;
     },
-    areGuitarsLoaded(state) {
-      return state.areGuitarsLoaded;
+    areGuitarsFetched(state) {
+      return state.areGuitarsFetched;
     },
     isGuitarInStock: state => guitarId =>
       state.guitars.find(item => item.id === guitarId).quantity > 0
@@ -20,8 +20,8 @@ export default {
     decrementGuitarQuantity(state, guitarId) {
       state.guitars.find(item => item.id === guitarId).quantity--;
     },
-    updateAreGuitarsLoadedStatus(state, status) {
-      state.areGuitarsLoaded = status;
+    updateAreGuitarsFetchedStatus(state, status) {
+      state.areGuitarsFetched = status;
     }
   },
   actions: {
@@ -31,8 +31,8 @@ export default {
     updateGuitarQuantity(store, guitarId) {
       store.commit("decrementGuitarQuantity", guitarId);
     },
-    setAreGuitarsLoadedStatusToTrue(store) {
-      store.commit("updateAreGuitarsLoadedStatus", true);
+    setAreGuitarsFetchedStatusToTrue(store) {
+      store.commit("updateAreGuitarsFetchedStatus", true);
     }
   }
 };

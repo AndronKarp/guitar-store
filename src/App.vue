@@ -3,10 +3,10 @@
     <TheNavbar />
     <b-container
       class="d-flex flex-column flex-fill mt-3"
-      :class="{ 'justify-content-center': !areGuitarsLoaded }"
+      :class="{ 'justify-content-center': !areGuitarsFetched }"
       fluid
     >
-      <router-view v-if="areGuitarsLoaded"></router-view>
+      <router-view v-if="areGuitarsFetched"></router-view>
       <b-spinner
         v-else
         class="align-self-center"
@@ -24,21 +24,23 @@ import { mapGetters } from "vuex";
 
 export default {
   computed: {
-    ...mapGetters(["areGuitarsLoaded"])
+    ...mapGetters(["areGuitarsFetched"])
   },
   created() {
-    this.setFirebaseEvents();
+    this.fetchGuitars();
   },
   methods: {
-    setFirebaseEvents() {
+    fetchGuitars() {
       guitarsRef.once("value", snapshot => {
         snapshot.forEach(childSnapshot => {
+          const guitar = childSnapshot.val();
+          const id = childSnapshot.key;
           this.$store.dispatch("addGuitar", {
-            ...childSnapshot.val(),
-            id: childSnapshot.key
+            ...guitar,
+            id
           });
         });
-        this.$store.dispatch("setAreGuitarsLoadedStatusToTrue");
+        this.$store.dispatch("setAreGuitarsFetchedStatusToTrue");
       });
     }
   },
