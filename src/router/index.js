@@ -11,7 +11,7 @@ const routes = [
     component: Home
   },
   {
-    path: "/:path",
+    path: "/description/:slug",
     name: "GuitarDescription",
     props: true,
     component: () =>

@@ -3,7 +3,7 @@
     <router-link
       :to="{
         name: 'GuitarDescription',
-        params: { path: guitar.model.replace(/\s/g, '').toLowerCase(), guitar }
+        params: { slug: guitar.slug }
       }"
     >
       <b-card

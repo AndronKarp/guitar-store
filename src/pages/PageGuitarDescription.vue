@@ -25,13 +25,16 @@ import { mapGetters } from "vuex";
 
 export default {
   props: {
-    guitar: {
-      type: Object,
+    slug: {
+      type: String,
       required: true
     }
   },
   computed: {
-    ...mapGetters(["isGuitarInStock"])
+    ...mapGetters(["guitars", "isGuitarInStock"]),
+    guitar() {
+      return this.guitars.find(guitar => guitar.slug === this.slug);
+    }
   },
   methods: {
     addGuitarToCart(guitar) {
