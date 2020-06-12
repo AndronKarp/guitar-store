@@ -6,8 +6,9 @@ Vue.use(VueRouter);
 const routes = [
   {
     path: "/",
-    name: "Home",
-    component: () => import(/* webpackChunkName: "home" */ "../pages/PageHome")
+    name: "GuitarStore",
+    component: () =>
+      import(/* webpackChunkName: "guitar-store" */ "../pages/PageGuitarStore")
   },
   {
     path: "/description/:slug",

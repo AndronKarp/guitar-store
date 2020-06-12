@@ -1,6 +1,6 @@
 <template>
   <b-navbar type="dark" variant="info">
-    <b-navbar-brand :to="{ name: 'Home' }">Guitar Store</b-navbar-brand>
+    <b-navbar-brand :to="{ name: 'GuitarStore' }">Guitar Store</b-navbar-brand>
 
     <b-navbar-toggle target="nav-collapse"></b-navbar-toggle>
 
