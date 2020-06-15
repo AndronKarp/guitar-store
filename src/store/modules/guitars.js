@@ -11,22 +11,22 @@ export default {
       return state.areGuitarsFetched;
     },
     isGuitarInStock: state => guitarId =>
-      state.guitars.find(item => item.id === guitarId).quantity > 0
+      state.guitars.find(guitar => guitar.id === guitarId).quantity > 0
   },
   mutations: {
-    addToGuitars(state, guitar) {
+    pushToGuitars(state, guitar) {
       state.guitars.push(guitar);
     },
     decrementGuitarQuantity(state, guitarId) {
-      state.guitars.find(item => item.id === guitarId).quantity--;
+      state.guitars.find(guitar => guitar.id === guitarId).quantity--;
     },
     updateAreGuitarsFetchedStatus(state, status) {
       state.areGuitarsFetched = status;
     }
   },
   actions: {
-    addGuitar(store, guitar) {
-      store.commit("addToGuitars", guitar);
+    addToGuitars(store, guitar) {
+      store.commit("pushToGuitars", guitar);
     },
     updateGuitarQuantity(store, guitarId) {
       store.commit("decrementGuitarQuantity", guitarId);

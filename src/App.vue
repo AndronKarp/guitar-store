@@ -35,7 +35,7 @@ export default {
         snapshot.forEach(childSnapshot => {
           const guitar = childSnapshot.val();
           const id = childSnapshot.key;
-          this.$store.dispatch("addGuitar", {
+          this.$store.dispatch("addToGuitars", {
             ...guitar,
             id
           });
