@@ -13,7 +13,7 @@
       <b-button
         :class="{ 'bg-info': isGuitarInStock(guitar.id) }"
         :disabled="!isGuitarInStock(guitar.id)"
-        @click="addGuitarToCart(guitar)"
+        @click="addToCart(guitar)"
         >Add To Cart</b-button
       >
     </b-container>
@@ -37,8 +37,8 @@ export default {
     }
   },
   methods: {
-    addGuitarToCart(guitar) {
-      this.$store.dispatch("addGuitarToCart", guitar);
+    addToCart(guitar) {
+      this.$store.dispatch("addToCart", guitar);
       this.$store.dispatch("updateGuitarQuantity", guitar.id);
     }
   }

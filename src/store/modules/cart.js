@@ -14,19 +14,19 @@ export default {
     }
   },
   mutations: {
-    pushGuitarToCart(state, guitar) {
+    pushToCart(state, guitar) {
       state.cart.push(guitar);
     },
-    incrementCartItemQuantity(state, cartItem) {
+    incrementQuantity(state, cartItem) {
       cartItem.quantity++;
     }
   },
   actions: {
-    addGuitarToCart(context, guitar) {
+    addToCart(context, guitar) {
       const cartItem = context.state.cart.find(item => item.id === guitar.id);
       cartItem
-        ? context.commit("incrementCartItemQuantity", cartItem)
-        : context.commit("pushGuitarToCart", {
+        ? context.commit("incrementQuantity", cartItem)
+        : context.commit("pushToCart", {
             id: guitar.id,
             brand: guitar.brand,
             model: guitar.model,
