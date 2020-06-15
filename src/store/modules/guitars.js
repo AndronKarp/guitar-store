@@ -17,8 +17,8 @@ export default {
     pushToGuitars(state, guitar) {
       state.guitars.push(guitar);
     },
-    decrementGuitarQuantity(state, guitarId) {
-      state.guitars.find(guitar => guitar.id === guitarId).quantity--;
+    increaseGuitarQuantity(state, { guitar, value }) {
+      guitar.quantity += value;
     },
     updateAreGuitarsFetchedStatus(state, status) {
       state.areGuitarsFetched = status;
@@ -28,8 +28,11 @@ export default {
     addToGuitars(store, guitar) {
       store.commit("pushToGuitars", guitar);
     },
-    updateGuitarQuantity(store, guitarId) {
-      store.commit("decrementGuitarQuantity", guitarId);
+    updateGuitarQuantity(context, { guitarId, value }) {
+      const guitar = context.state.guitars.find(
+        guitar => guitar.id === guitarId
+      );
+      context.commit("increaseGuitarQuantity", { guitar, value });
     },
     setAreGuitarsFetchedStatusToTrue(store) {
       store.commit("updateAreGuitarsFetchedStatus", true);

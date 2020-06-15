@@ -39,7 +39,10 @@ export default {
   methods: {
     addToCart(guitar) {
       this.$store.dispatch("addToCart", guitar);
-      this.$store.dispatch("updateGuitarQuantity", guitar.id);
+      this.$store.dispatch("updateGuitarQuantity", {
+        guitarId: guitar.id,
+        value: -1
+      });
     }
   }
 };

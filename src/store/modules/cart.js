@@ -19,6 +19,9 @@ export default {
     },
     incrementQuantity(state, cartItem) {
       cartItem.quantity++;
+    },
+    removeCartItemFromCart(state, cartItemIndex) {
+      state.cart.splice(cartItemIndex, 1);
     }
   },
   actions: {
@@ -33,6 +36,12 @@ export default {
             price: guitar.price,
             quantity: 1
           });
+    },
+    removeCartItem(context, cartItemId) {
+      const cartItemIndex = context.state.cart.findIndex(
+        cartItem => cartItem.id === cartItemId
+      );
+      context.commit("removeCartItemFromCart", cartItemIndex);
     }
   }
 };

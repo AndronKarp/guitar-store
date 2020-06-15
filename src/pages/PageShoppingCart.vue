@@ -1,17 +1,16 @@
 <template>
-  <b-table
-    class="m-2"
-    responsive
-    outlined
-    striped
-    :items="cart"
-    :fields="fields"
-  >
+  <b-table class="m-2" borderless responsive :items="cart" :fields="fields">
     <template v-slot:cell(№)="data">
       {{ data.index + 1 }}
     </template>
     <template v-slot:cell(price)="data">
       {{ data.item.price | currency }}
+      <b-icon
+        @click="removeFromCart(data.item)"
+        class="ml-3"
+        style="cursor: pointer; width: 24px; height: 24px"
+        icon="x"
+      ></b-icon>
     </template>
     <template v-slot:custom-foot>
       <b-tr>
@@ -27,11 +26,29 @@ import { mapGetters } from "vuex";
 export default {
   data() {
     return {
-      fields: ["№", "brand", "model", "quantity", "price"]
+      fields: [
+        "№",
+        "brand",
+        "model",
+        "quantity",
+        {
+          key: "price",
+          tdClass: "d-flex justify-content-between"
+        }
+      ]
     };
   },
   computed: {
     ...mapGetters(["cart", "cartTotal"])
+  },
+  methods: {
+    removeFromCart(cartItem) {
+      this.$store.dispatch("removeCartItem", cartItem.id);
+      this.$store.dispatch("updateGuitarQuantity", {
+        guitarId: cartItem.id,
+        value: cartItem.quantity
+      });
+    }
   }
 };
 </script>
