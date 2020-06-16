@@ -25,21 +25,21 @@ export default {
     }
   },
   actions: {
-    addToCart(context, guitar) {
-      const cartItem = context.state.cart.find(item => item.id === guitar.id);
+    addToCart(context, { id, brand, model, price }) {
+      const cartItem = context.state.cart.find(item => item.id === id);
       cartItem
         ? context.commit("incrementQuantity", cartItem)
         : context.commit("pushToCart", {
-            id: guitar.id,
-            brand: guitar.brand,
-            model: guitar.model,
-            price: guitar.price,
+            id,
+            brand,
+            model,
+            price,
             quantity: 1
           });
     },
-    removeCartItem(context, cartItemId) {
+    removeCartItem(context, { id }) {
       const cartItemIndex = context.state.cart.findIndex(
-        cartItem => cartItem.id === cartItemId
+        cartItem => cartItem.id === id
       );
       context.commit("removeCartItemFromCart", cartItemIndex);
     }

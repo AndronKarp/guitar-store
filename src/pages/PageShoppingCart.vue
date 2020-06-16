@@ -39,14 +39,15 @@ export default {
     };
   },
   computed: {
-    ...mapGetters(["cart", "cartTotal"])
+    ...mapGetters(["cart", "cartTotal", "guitars"])
   },
   methods: {
     removeFromCart(cartItem) {
-      this.$store.dispatch("removeCartItem", cartItem.id);
+      this.$store.dispatch("removeCartItem", cartItem);
+      const guitar = this.guitars.find(guitar => guitar.id === cartItem.id);
       this.$store.dispatch("updateGuitarQuantity", {
-        guitarId: cartItem.id,
-        value: cartItem.quantity
+        guitar,
+        newValue: guitar.quantity + cartItem.quantity
       });
     }
   }

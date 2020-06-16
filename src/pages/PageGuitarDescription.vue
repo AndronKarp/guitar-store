@@ -40,8 +40,8 @@ export default {
     addToCart(guitar) {
       this.$store.dispatch("addToCart", guitar);
       this.$store.dispatch("updateGuitarQuantity", {
-        guitarId: guitar.id,
-        value: -1
+        guitar,
+        newValue: guitar.quantity - 1
       });
     }
   }
