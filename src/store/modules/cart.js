@@ -8,7 +8,7 @@ export default {
     },
     cartTotal(state) {
       return state.cart.reduce(
-        (total, item) => total + item.price * item.quantity,
+        (total, cartItem) => total + cartItem.price * cartItem.quantity,
         0
       );
     }
