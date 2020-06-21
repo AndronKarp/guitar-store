@@ -1,0 +1,9 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`GuitarList.vue renders list of guitars 1`] = `
+<b-row-stub tag="div" cols="1" colsmd="2" colslg="3" colsxl="4">
+  <guitarlistitem-stub guitar="[object Object]"></guitarlistitem-stub>
+  <guitarlistitem-stub guitar="[object Object]"></guitarlistitem-stub>
+  <guitarlistitem-stub guitar="[object Object]"></guitarlistitem-stub>
+</b-row-stub>
+`;

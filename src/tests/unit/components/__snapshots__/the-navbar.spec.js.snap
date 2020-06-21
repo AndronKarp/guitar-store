@@ -1,0 +1,22 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`TheNavbar.vue renders navigation bar 1`] = `
+<b-navbar-stub tag="nav" type="dark" variant="info">
+  <b-navbar-brand-stub tag="div" target="_self" to="[object Object]">Guitar Store</b-navbar-brand-stub>
+  <b-navbar-toggle-stub label="Toggle navigation" target="nav-collapse"></b-navbar-toggle-stub>
+  <b-collapse-stub id="nav-collapse" isnav="true" tag="div">
+    <b-navbar-nav-stub tag="ul">
+      <b-nav-item-stub target="_self">Contact Us!</b-nav-item-stub>
+    </b-navbar-nav-stub>
+    <b-navbar-nav-stub tag="ul" class="ml-auto">
+      <b-nav-item-stub target="_self" to="[object Object]" right="" class="d-flex align-items-center">
+        <b-icon-stub icon="cart4" fontscale="1" scale="1" rotate="0" shifth="0" shiftv="0"></b-icon-stub>
+      </b-nav-item-stub>
+      <b-nav-item-dropdown-stub right="true" offset="0" boundary="scrollParent" text="" role="menu">
+        <b-dropdown-item-stub target="_self">Profile</b-dropdown-item-stub>
+        <b-dropdown-item-stub target="_self">Sign Out</b-dropdown-item-stub>
+      </b-nav-item-dropdown-stub>
+    </b-navbar-nav-stub>
+  </b-collapse-stub>
+</b-navbar-stub>
+`;

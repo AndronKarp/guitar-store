@@ -1,0 +1,10 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`GuitarListItem.vue renders guitar card 1`] = `
+<b-col-stub tag="div"><a>
+    <b-card-stub bodytag="div" titletag="h4" subtitletag="h6" subtitletextvariant="muted" headertag="div" footertag="div" imgsrc="" imgalt="SG" tag="div" class="m-2">
+      <b-card-title-stub titletag="h4">Gibson SG</b-card-title-stub>
+      <b-card-text-stub texttag="p"> 100</b-card-text-stub>
+    </b-card-stub>
+  </a></b-col-stub>
+`;
