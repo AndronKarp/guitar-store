@@ -40,7 +40,7 @@ export default {
             id
           });
         });
-        this.$store.dispatch("setAreGuitarsFetchedStatusToTrue");
+        this.$store.dispatch("updateAreGuitarsFetchedStatusToTrue");
       });
     }
   },

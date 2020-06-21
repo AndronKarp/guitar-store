@@ -44,10 +44,9 @@ export default {
   methods: {
     removeFromCart(cartItem) {
       this.$store.dispatch("removeCartItem", cartItem);
-      const guitar = this.guitars.find(guitar => guitar.id === cartItem.id);
       this.$store.dispatch("updateGuitarQuantity", {
-        guitar,
-        newValue: guitar.quantity + cartItem.quantity
+        guitarId: cartItem.id,
+        extraQuantity: cartItem.quantity
       });
     }
   }

@@ -25,11 +25,11 @@ export default {
     }
   },
   actions: {
-    addToCart(context, { id, brand, model, price }) {
-      const cartItem = context.state.cart.find(item => item.id === id);
+    addToCart({ state, commit }, { id, brand, model, price }) {
+      const cartItem = state.cart.find(cartItem => cartItem.id === id);
       cartItem
-        ? context.commit("incrementQuantity", cartItem)
-        : context.commit("pushToCart", {
+        ? commit("incrementQuantity", cartItem)
+        : commit("pushToCart", {
             id,
             brand,
             model,
@@ -37,11 +37,11 @@ export default {
             quantity: 1
           });
     },
-    removeCartItem(context, { id }) {
-      const cartItemIndex = context.state.cart.findIndex(
+    removeCartItem({ state, commit }, { id }) {
+      const cartItemIndex = state.cart.findIndex(
         cartItem => cartItem.id === id
       );
-      context.commit("removeCartItemFromCart", cartItemIndex);
+      commit("removeCartItemFromCart", cartItemIndex);
     }
   }
 };

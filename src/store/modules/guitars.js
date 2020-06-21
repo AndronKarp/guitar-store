@@ -18,7 +18,7 @@ export default {
     setNewGuitarQuantity(state, { guitar, value }) {
       guitar.quantity = value;
     },
-    updateAreGuitarsFetchedStatus(state, { status }) {
+    setNewAreGuitarsFetchedStatus(state, { status }) {
       state.areGuitarsFetched = status;
     }
   },
@@ -26,11 +26,15 @@ export default {
     addToGuitars(store, guitar) {
       store.commit("pushToGuitars", guitar);
     },
-    updateGuitarQuantity(context, { guitar, value }) {
-      context.commit("setNewGuitarQuantity", { guitar, value });
+    updateGuitarQuantity({ state, commit }, { guitarId, extraQuantity }) {
+      const guitar = state.guitars.find(guitar => guitar.id === guitarId);
+      commit("setNewGuitarQuantity", {
+        guitar,
+        value: guitar.quantity + extraQuantity
+      });
     },
-    setAreGuitarsFetchedStatusToTrue(store) {
-      store.commit("updateAreGuitarsFetchedStatus", { status: true });
+    updateAreGuitarsFetchedStatusToTrue(store) {
+      store.commit("setNewAreGuitarsFetchedStatus", { status: true });
     }
   }
 };

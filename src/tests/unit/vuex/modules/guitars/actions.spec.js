@@ -6,7 +6,7 @@ describe("guitarsModule/actions", () => {
   let commit;
 
   beforeEach(() => {
-    existingGuitarsItem = { id: 0 };
+    existingGuitarsItem = { id: 0, quantity: 1 };
     state = {
       guitars: [existingGuitarsItem]
     };
@@ -21,14 +21,14 @@ describe("guitarsModule/actions", () => {
 
   test("updateGuitarQuantity commits setNewGuitarQuantity mutation", () => {
     const guitarId = existingGuitarsItem.id;
-    const value = 0;
+    const extraQuantity = 1;
     guitars.actions.updateGuitarQuantity(
       { state, commit },
-      { guitarId, value }
+      { guitarId, extraQuantity }
     );
     expect(commit).toHaveBeenCalledWith("setNewGuitarQuantity", {
       guitar: existingGuitarsItem,
-      value
+      value: 2
     });
   });
 
