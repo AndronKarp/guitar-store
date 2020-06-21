@@ -1,6 +1,6 @@
 <template>
   <b-navbar type="dark" variant="info">
-    <b-navbar-brand :to="{ name: 'GuitarStore' }">Guitar Store</b-navbar-brand>
+    <b-navbar-brand :to="{ name: 'PageGuitarStore' }">Guitar Store</b-navbar-brand>
 
     <b-navbar-toggle target="nav-collapse"></b-navbar-toggle>
 
@@ -13,7 +13,7 @@
         <b-nav-item
           class="d-flex align-items-center"
           right
-          :to="{ name: 'ShoppingCart' }"
+          :to="{ name: 'PageShoppingCart' }"
           ><b-icon icon="cart4"></b-icon
         ></b-nav-item>
         <b-nav-item-dropdown right>

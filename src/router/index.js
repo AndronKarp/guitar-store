@@ -6,13 +6,13 @@ Vue.use(VueRouter);
 const routes = [
   {
     path: "/",
-    name: "GuitarStore",
+    name: "PageGuitarStore",
     component: () =>
       import(/* webpackChunkName: "guitar-store" */ "../pages/PageGuitarStore")
   },
   {
     path: "/description/:slug",
-    name: "GuitarDescription",
+    name: "PageGuitarDescription",
     props: true,
     component: () =>
       import(
@@ -21,7 +21,7 @@ const routes = [
   },
   {
     path: "/cart",
-    name: "ShoppingCart",
+    name: "PageShoppingCart",
     component: () =>
       import(
         /* webpackChunkName: "shopping-cart" */ "../pages/PageShoppingCart"
