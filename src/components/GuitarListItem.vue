@@ -9,7 +9,7 @@
       <b-card
         class="m-2"
         style="min-width: 280px;"
-        :img-src="require(`../assets/${guitar.image}`)"
+        :img-src="require(`../assets/${guitar.model}.png`)"
         :img-alt="guitar.model"
       >
         <b-card-title>{{ guitar.brand }} {{ guitar.model }}</b-card-title>

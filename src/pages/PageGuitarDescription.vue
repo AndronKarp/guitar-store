@@ -1,7 +1,7 @@
 <template>
   <b-container fluid class="d-flex mt-2">
     <img
-      :src="require(`../assets/${guitar.image}`)"
+      :src="require(`../assets/${guitar.model}.png`)"
       :alt="guitar.model"
       style="width: 700px"
     />
