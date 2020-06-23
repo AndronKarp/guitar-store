@@ -18,7 +18,6 @@ describe("GuitarListItem.vue", () => {
         guitar: {
           brand: "Gibson",
           model: "SG",
-          image: "Gibson SG.png",
           price: 100,
           slug: "sg"
         }
