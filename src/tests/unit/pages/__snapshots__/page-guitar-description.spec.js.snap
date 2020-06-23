@@ -1,0 +1,12 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`PageGuitarDescription.vue renders guitar description 1`] = `
+<b-container-stub tag="div" fluid="true" class="d-flex mt-2"><img src="" alt="SG" style="width: 700px;">
+  <b-container-stub tag="div" class="d-flex flex-column">
+    <h4>Gibson SG</h4>
+    <p>Guitar</p>
+    <p class="text-success">In Stock</p>
+    <b-button-stub variant="secondary" type="button" tag="button" target="_self" class=" bg-info">Add To Cart</b-button-stub>
+  </b-container-stub>
+</b-container-stub>
+`;
