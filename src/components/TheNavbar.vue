@@ -1,6 +1,6 @@
 <template>
   <b-navbar type="dark" variant="info">
-    <b-navbar-brand :to="{ name: 'PageGuitarStore' }"
+    <b-navbar-brand class="guitar-store-page-link" to="/"
       >Guitar Store</b-navbar-brand
     >
 
@@ -13,9 +13,9 @@
 
       <b-navbar-nav class="ml-auto">
         <b-nav-item
-          class="d-flex align-items-center"
+          class="cart-page-link d-flex align-items-center"
           right
-          :to="{ name: 'PageShoppingCart' }"
+          to="/cart"
           ><b-icon icon="cart4"></b-icon
         ></b-nav-item>
         <b-nav-item-dropdown right>
