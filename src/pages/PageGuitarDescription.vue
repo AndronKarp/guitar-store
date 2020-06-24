@@ -1,11 +1,13 @@
 <template>
-  <b-container fluid class="d-flex mt-2">
-    <img
-      :src="require(`../assets/${guitar.model}.png`)"
-      :alt="guitar.model"
-      style="width: 700px"
-    />
-    <b-container class="d-flex flex-column">
+  <b-row class="mb-3" cols-lg="2" cols="1">
+    <b-col class="mb-3 mb-lg-0">
+      <b-img
+        fluid-grow
+        :src="require(`../assets/${guitar.model}.png`)"
+        :alt="guitar.model"
+      />
+    </b-col>
+    <b-col>
       <h4>{{ guitar.brand }} {{ guitar.model }}</h4>
       <p>{{ guitar.description }}</p>
       <p class="text-success" v-if="isGuitarInStock(guitar)">In Stock</p>
@@ -16,8 +18,8 @@
         @click="addToCart(guitar)"
         >Add To Cart</b-button
       >
-    </b-container>
-  </b-container>
+    </b-col>
+  </b-row>
 </template>
 
 <script>
