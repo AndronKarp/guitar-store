@@ -7,7 +7,7 @@
       }"
     >
       <b-card
-        class="m-2"
+        class="mb-3"
         style="min-width: 280px;"
         :img-src="require(`../assets/${guitar.model}.png`)"
         :img-alt="guitar.model"
