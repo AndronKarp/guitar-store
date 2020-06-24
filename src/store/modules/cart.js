@@ -11,6 +11,9 @@ export default {
         (total, cartItem) => total + cartItem.price * cartItem.quantity,
         0
       );
+    },
+    isCartEmpty(state) {
+      return !state.cart.length;
     }
   },
   mutations: {

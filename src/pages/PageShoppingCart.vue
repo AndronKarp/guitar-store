@@ -1,54 +1,24 @@
 <template>
-  <b-table class="m-2" borderless responsive :items="cart" :fields="fields">
-    <template v-slot:cell(№)="data">
-      {{ data.index + 1 }}
-    </template>
-    <template v-slot:cell(price)="data">
-      {{ data.item.price | currency }}
-      <b-icon
-        @click="removeFromCart(data.item)"
-        class="ml-3"
-        style="cursor: pointer; width: 24px; height: 24px"
-        icon="x"
-      ></b-icon>
-    </template>
-    <template v-slot:custom-foot>
-      <b-tr>
-        <b-th colspan="5">Total: {{ cartTotal | currency }}</b-th>
-      </b-tr>
-    </template>
-  </b-table>
+  <b-row cols="1">
+    <b-col>
+      <ShoppingCart v-show="!isCartEmpty" />
+      <b-alert :show="isCartEmpty" variant="info">
+        <p class="mb-0">The cart is empty for now!</p>
+      </b-alert>
+    </b-col>
+  </b-row>
 </template>
 
 <script>
+import ShoppingCart from "../components/ShoppingCart";
 import { mapGetters } from "vuex";
 
 export default {
-  data() {
-    return {
-      fields: [
-        "№",
-        "brand",
-        "model",
-        "quantity",
-        {
-          key: "price",
-          tdClass: "d-flex justify-content-between"
-        }
-      ]
-    };
-  },
   computed: {
-    ...mapGetters(["cart", "cartTotal", "guitars"])
+    ...mapGetters(["isCartEmpty"])
   },
-  methods: {
-    removeFromCart(cartItem) {
-      this.$store.dispatch("removeCartItem", cartItem);
-      this.$store.dispatch("updateGuitarQuantity", {
-        guitarId: cartItem.id,
-        extraQuantity: cartItem.quantity
-      });
-    }
+  components: {
+    ShoppingCart
   }
 };
 </script>
