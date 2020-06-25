@@ -1,5 +1,18 @@
 import guitars from "@/store/modules/guitars";
 
+jest.mock("@/configs/firebase", () => {
+  const data = { name: "data" };
+  const snapshot = [
+    { key: 0, val: () => data },
+    { key: 1, val: () => data }
+  ];
+  return {
+    guitarsRef: {
+      once: jest.fn((eventType, callback) => callback(snapshot))
+    }
+  };
+});
+
 describe("guitarsModule/actions", () => {
   let existingGuitarsItem;
   let state;
@@ -13,10 +26,26 @@ describe("guitarsModule/actions", () => {
     commit = jest.fn();
   });
 
-  test("addToGuitars commits pushToGuitars mutation", () => {
-    const guitar = {};
-    guitars.actions.addToGuitars({ commit }, guitar);
-    expect(commit).toHaveBeenCalledWith("pushToGuitars", guitar);
+  describe("fetchGuitars", () => {
+    test("commits pushToGuitars mutation for every received object", () => {
+      guitars.actions.fetchGuitars({ state, commit });
+      expect(commit).toHaveBeenNthCalledWith(
+        1,
+        "pushToGuitars",
+        expect.objectContaining({ id: 0, name: "data" })
+      );
+      expect(commit).toHaveBeenNthCalledWith(
+        2,
+        "pushToGuitars",
+        expect.objectContaining({ id: 1, name: "data" })
+      );
+    });
+    test("commits setAreGuitarsFetchedStatusToTrue mutation after all objects has been received", () => {
+      guitars.actions.fetchGuitars({ state, commit });
+      expect(commit).toHaveBeenLastCalledWith(
+        "setAreGuitarsFetchedStatusToTrue"
+      );
+    });
   });
 
   test("updateGuitarQuantity commits setNewGuitarQuantity mutation", () => {
@@ -29,13 +58,6 @@ describe("guitarsModule/actions", () => {
     expect(commit).toHaveBeenCalledWith("setNewGuitarQuantity", {
       guitar: existingGuitarsItem,
       value: 2
-    });
-  });
-
-  test("updateAreGuitarsFetchedStatusToTrue commits setNewAreGuitarsFetchedStatus mutation", () => {
-    guitars.actions.updateAreGuitarsFetchedStatusToTrue({ commit });
-    expect(commit).toHaveBeenCalledWith("setNewAreGuitarsFetchedStatus", {
-      status: true
     });
   });
 });
