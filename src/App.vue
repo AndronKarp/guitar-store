@@ -19,7 +19,6 @@
 
 <script>
 import TheNavbar from "./components/TheNavbar";
-import { guitarsRef } from "./configs/firebase";
 import { mapGetters } from "vuex";
 
 export default {
@@ -27,22 +26,7 @@ export default {
     ...mapGetters(["areGuitarsFetched"])
   },
   created() {
-    this.fetchGuitars();
-  },
-  methods: {
-    fetchGuitars() {
-      guitarsRef.once("value", snapshot => {
-        snapshot.forEach(childSnapshot => {
-          const guitar = childSnapshot.val();
-          const id = childSnapshot.key;
-          this.$store.dispatch("addToGuitars", {
-            ...guitar,
-            id
-          });
-        });
-        this.$store.dispatch("updateAreGuitarsFetchedStatusToTrue");
-      });
-    }
+    this.$store.dispatch("fetchGuitars");
   },
   components: {
     TheNavbar

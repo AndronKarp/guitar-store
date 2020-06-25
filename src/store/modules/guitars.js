@@ -1,3 +1,5 @@
+import { guitarsRef } from "@/configs/firebase";
+
 export default {
   state: {
     guitars: [],
@@ -18,13 +20,23 @@ export default {
     setNewGuitarQuantity(state, { guitar, value }) {
       guitar.quantity = value;
     },
-    setNewAreGuitarsFetchedStatus(state, { status }) {
-      state.areGuitarsFetched = status;
+    setAreGuitarsFetchedStatusToTrue(state) {
+      state.areGuitarsFetched = true;
     }
   },
   actions: {
-    addToGuitars(store, guitar) {
-      store.commit("pushToGuitars", guitar);
+    fetchGuitars(store) {
+      guitarsRef.once("value", snapshot => {
+        snapshot.forEach(childSnapshot => {
+          const guitar = childSnapshot.val();
+          const id = childSnapshot.key;
+          store.commit("pushToGuitars", {
+            ...guitar,
+            id
+          });
+        });
+        store.commit("setAreGuitarsFetchedStatusToTrue");
+      });
     },
     updateGuitarQuantity({ state, commit }, { guitarId, extraQuantity }) {
       const guitar = state.guitars.find(guitar => guitar.id === guitarId);
@@ -32,9 +44,6 @@ export default {
         guitar,
         value: guitar.quantity + extraQuantity
       });
-    },
-    updateAreGuitarsFetchedStatusToTrue(store) {
-      store.commit("setNewAreGuitarsFetchedStatus", { status: true });
     }
   }
 };
