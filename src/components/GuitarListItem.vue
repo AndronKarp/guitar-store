@@ -2,7 +2,7 @@
   <b-col>
     <router-link
       :to="{
-        name: 'PageGuitarDescription',
+        name: 'PageGuitarDetails',
         params: { slug: guitar.slug }
       }"
     >

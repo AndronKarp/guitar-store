@@ -11,12 +11,12 @@ const routes = [
       import(/* webpackChunkName: "guitar-store" */ "../pages/PageGuitarStore")
   },
   {
-    path: "/description/:slug",
-    name: "PageGuitarDescription",
+    path: "/details/:slug",
+    name: "PageGuitarDetails",
     props: true,
     component: () =>
       import(
-        /* webpackChunkName: "guitar-description" */ "../pages/PageGuitarDescription"
+        /* webpackChunkName: "guitar-details" */ "../pages/PageGuitarDetails"
       )
   },
   {
