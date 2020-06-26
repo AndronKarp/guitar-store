@@ -1,5 +1,9 @@
 <template>
-  <GuitarList />
+  <b-row cols="1">
+    <b-col>
+      <GuitarList />
+    </b-col>
+  </b-row>
 </template>
 
 <script>
