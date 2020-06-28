@@ -1,0 +1,15 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`PageGuitarDetails.vue renders guitar details 1`] = `
+<b-row-stub tag="div" cols="1" colslg="2" class="mb-3">
+  <b-col-stub tag="div" class="mb-3 mb-lg-0">
+    <b-img-stub src="" alt="SG" fluidgrow="true" blankcolor="transparent"></b-img-stub>
+  </b-col-stub>
+  <b-col-stub tag="div">
+    <h4>Gibson SG</h4>
+    <p>Guitar</p>
+    <p class="text-success">In Stock</p>
+    <b-button-stub variant="secondary" type="button" tag="button" target="_self" class=" bg-info">Add To Cart</b-button-stub>
+  </b-col-stub>
+</b-row-stub>
+`;

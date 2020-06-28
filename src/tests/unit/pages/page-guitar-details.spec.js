@@ -1,7 +1,7 @@
 import { createLocalVue, shallowMount } from "@vue/test-utils";
 import Vuex from "vuex";
 import guitars from "@/store/modules/guitars";
-import PageGuitarDescription from "@/pages/PageGuitarDescription";
+import PageGuitarDetails from "@/pages/PageGuitarDetails";
 import BootstrapVue from "bootstrap-vue";
 
 const localVue = createLocalVue();
@@ -9,7 +9,7 @@ const localVue = createLocalVue();
 localVue.use(BootstrapVue);
 localVue.use(Vuex);
 
-describe("PageGuitarDescription.vue", () => {
+describe("PageGuitarDetails.vue", () => {
   let wrapper;
   let store;
   let guitar;
@@ -34,7 +34,7 @@ describe("PageGuitarDescription.vue", () => {
       getters: guitars.getters,
       actions
     });
-    wrapper = shallowMount(PageGuitarDescription, {
+    wrapper = shallowMount(PageGuitarDetails, {
       localVue,
       store,
       propsData: {
@@ -43,7 +43,7 @@ describe("PageGuitarDescription.vue", () => {
     });
   });
 
-  test("renders guitar description", () => {
+  test("renders guitar details", () => {
     expect(wrapper).toMatchSnapshot();
   });
 
