@@ -12,19 +12,9 @@
       </b-navbar-nav>
 
       <b-navbar-nav class="ml-auto">
-        <b-nav-item
-          class="cart-page-link d-flex align-items-center"
-          right
-          to="/cart"
-          ><b-icon icon="cart4"></b-icon
-        ></b-nav-item>
-        <b-nav-item-dropdown right>
-          <template v-slot:button-content>
-            <b-avatar variant="primary" text="JD"></b-avatar>
-          </template>
-          <b-dropdown-item>Profile</b-dropdown-item>
-          <b-dropdown-item>Sign Out</b-dropdown-item>
-        </b-nav-item-dropdown>
+        <b-nav-item>
+          <b-button to="/registration" variant="info" right>Sign Up</b-button>
+        </b-nav-item>
       </b-navbar-nav>
     </b-collapse>
   </b-navbar>
