@@ -1,9 +1,10 @@
 <template>
   <b-form>
     <custom-input
-      v-for="(field, index) in Object.keys(form)"
+      v-for="(field, index) in form"
       :key="index"
-      :field="{ ...form[field].meta, validations: $v.form[field].value }"
+      v-model="field.value"
+      :meta="field.meta"
     ></custom-input>
   </b-form>
 </template>
@@ -27,7 +28,7 @@ export default {
               minLength: "Name must have at least 2 characters"
             }
           },
-          value: null
+          value: ""
         },
         email: {
           meta: {
@@ -38,7 +39,7 @@ export default {
               email: "Invalid e-mail"
             }
           },
-          value: null
+          value: ""
         },
         password: {
           meta: {
@@ -50,7 +51,7 @@ export default {
               minLength: "Name must have at least 6 characters"
             }
           },
-          value: null
+          value: ""
         },
         confirmPassword: {
           meta: {
@@ -61,7 +62,7 @@ export default {
               sameAsPassword: "Passwords don't match"
             }
           },
-          value: null
+          value: ""
         }
       }
     };
