@@ -14,6 +14,7 @@
 import { validationMixin } from "vuelidate";
 import * as validators from "vuelidate/lib/validators";
 import CustomInput from "../components/CustomInput";
+import formValidation from "../mixins/form-validation";
 
 export default {
   data() {
@@ -102,22 +103,12 @@ export default {
     };
   },
   validations() {
-    const form = {};
-    const formFields = Object.entries(this.form);
-    formFields.forEach(([fieldName, field]) => {
-      const value = {};
-      const validations = Object.entries(field.meta.validations);
-      validations.forEach(([validationName, validation]) => {
-        value[validationName] = validation.rule;
-      });
-      form[fieldName] = { value };
-    });
-    return { form };
+    return { form: this.getValidations() };
   },
   components: {
     CustomInput
   },
-  mixins: [validationMixin]
+  mixins: [validationMixin, formValidation]
 };
 </script>
 
