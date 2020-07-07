@@ -48,14 +48,14 @@ describe("guitarsModule/actions", () => {
     });
   });
 
-  test("updateGuitarQuantity commits setNewGuitarQuantity mutation", () => {
+  test("updateGuitarQuantity commits setGuitarQuantity mutation", () => {
     const guitarId = existingGuitarsItem.id;
     const extraQuantity = 1;
     guitars.actions.updateGuitarQuantity(
       { state, commit },
       { guitarId, extraQuantity }
     );
-    expect(commit).toHaveBeenCalledWith("setNewGuitarQuantity", {
+    expect(commit).toHaveBeenCalledWith("setGuitarQuantity", {
       guitar: existingGuitarsItem,
       value: 2
     });

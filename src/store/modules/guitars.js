@@ -17,7 +17,7 @@ export default {
     pushToGuitars(state, guitar) {
       state.guitars.push(guitar);
     },
-    setNewGuitarQuantity(state, { guitar, value }) {
+    setGuitarQuantity(state, { guitar, value }) {
       guitar.quantity = value;
     },
     setAreGuitarsFetchedStatusToTrue(state) {
@@ -40,7 +40,7 @@ export default {
     },
     updateGuitarQuantity({ state, commit }, { guitarId, extraQuantity }) {
       const guitar = state.guitars.find(guitar => guitar.id === guitarId);
-      commit("setNewGuitarQuantity", {
+      commit("setGuitarQuantity", {
         guitar,
         value: guitar.quantity + extraQuantity
       });

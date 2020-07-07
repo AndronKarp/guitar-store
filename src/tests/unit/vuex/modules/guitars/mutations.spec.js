@@ -14,16 +14,15 @@ describe("guitarsModule/mutations", () => {
     expect(state.guitars).toContain(guitar);
   });
 
-  test("setNewGuitarQuantity sets a new value of quantity property of passed object", () => {
+  test("setGuitarQuantity sets a new value of quantity property of passed object", () => {
     const guitar = { quantity: 0 };
     const value = 1;
-    guitars.mutations.setNewGuitarQuantity(state, { guitar, value });
+    guitars.mutations.setGuitarQuantity(state, { guitar, value });
     expect(guitar).toHaveProperty("quantity", value);
   });
 
-  test("setNewAreGuitarsFetchedStatus sets a new status of state.areGuitaresFetched", () => {
-    const status = true;
-    guitars.mutations.setNewAreGuitarsFetchedStatus(state, { status });
-    expect(state.areGuitarsFetched).toBe(status);
+  test("setAreGuitarsFetchedStatusToTrue sets state.areGuitarsFetched a value of true", () => {
+    guitars.mutations.setAreGuitarsFetchedStatusToTrue(state);
+    expect(state.areGuitarsFetched).toBe(true);
   });
 });
