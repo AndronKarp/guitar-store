@@ -1,5 +1,5 @@
 <template>
-  <b-form>
+  <b-form @submit.prevent="register">
     <custom-input
       v-for="(field, index) in Object.keys(form)"
       :key="index"
@@ -7,6 +7,12 @@
       :meta="form[field].meta"
       :validations="$v.form[field].value"
     ></custom-input>
+    <b-button
+      :class="{ 'bg-info': !$v.$invalid }"
+      :disabled="$v.$invalid"
+      type="submit"
+      >Sign Up</b-button
+    >
   </b-form>
 </template>
 
@@ -15,6 +21,7 @@ import { validationMixin } from "vuelidate";
 import * as validators from "vuelidate/lib/validators";
 import CustomInput from "../components/CustomInput";
 import formValidation from "../mixins/form-validation";
+import { auth } from "../configs/firebase";
 
 export default {
   data() {
@@ -104,6 +111,17 @@ export default {
   },
   validations() {
     return { form: this.getValidations() };
+  },
+  methods: {
+    async register() {
+      await auth().createUserWithEmailAndPassword(
+        this.form.email.value,
+        this.form.password.value
+      );
+      const currentUser = auth().currentUser;
+      await currentUser.updateProfile({ displayName: this.form.name.value });
+      this.$router.push("/");
+    }
   },
   components: {
     CustomInput

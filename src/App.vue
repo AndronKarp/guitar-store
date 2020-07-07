@@ -26,6 +26,7 @@ export default {
     ...mapGetters(["areGuitarsFetched"])
   },
   created() {
+    this.$store.dispatch("setAuthObserver");
     this.$store.dispatch("fetchGuitars");
   },
   components: {

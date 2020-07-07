@@ -15,5 +15,6 @@ firebase.initializeApp(config);
 
 const database = firebase.database();
 const guitarsRef = database.ref("guitars");
+const auth = firebase.auth;
 
-export { guitarsRef };
+export { guitarsRef, auth };

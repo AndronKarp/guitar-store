@@ -19,7 +19,8 @@ describe("App.vue", () => {
   beforeEach(() => {
     state = { areGuitarsFetched: true };
     actions = {
-      fetchGuitars: jest.fn()
+      fetchGuitars: jest.fn(),
+      setAuthObserver: jest.fn()
     };
     store = new Vuex.Store({
       state,
@@ -43,8 +44,14 @@ describe("App.vue", () => {
   });
 
   describe("lifecycle methods", () => {
-    test("created calls fetchGuitars vuex action", () => {
-      expect(actions.fetchGuitars).toHaveBeenCalled();
+    describe("created", () => {
+      test("invokes fetchGuitars vuex action", () => {
+        expect(actions.fetchGuitars).toHaveBeenCalled();
+      });
+
+      test("invokes setAuthObserver vuex action", () => {
+        expect(actions.setAuthObserver).toHaveBeenCalled();
+      });
     });
   });
 });
