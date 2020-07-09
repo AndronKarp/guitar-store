@@ -1,11 +1,17 @@
-import { setValidations } from "../helpers";
-
 export default {
   methods: {
-    getValidations() {
-      const validations = {};
-      setValidations.call(validations, this.form);
-      return validations;
+    setValidations() {
+      const form = {};
+      const formFields = Object.entries(this.form);
+      formFields.forEach(([fieldName, field]) => {
+        const value = {};
+        const validations = Object.entries(field.meta.validations);
+        validations.forEach(([validationName, validation]) => {
+          value[validationName] = validation.rule;
+        });
+        form[fieldName] = { value };
+      });
+      return form;
     }
   }
 };

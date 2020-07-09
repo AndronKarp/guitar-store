@@ -110,7 +110,7 @@ export default {
     };
   },
   validations() {
-    return { form: this.getValidations() };
+    return { form: this.setValidations() };
   },
   methods: {
     async register() {
