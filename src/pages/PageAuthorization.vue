@@ -1,12 +1,19 @@
 <template>
   <b-form @submit.prevent="authorize">
-    <custom-input
-      v-for="(field, index) in Object.keys(form)"
-      :key="index"
-      v-model="$v.form[field].value.$model"
-      :meta="form[field].meta"
-      :validations="$v.form[field].value"
-    ></custom-input>
+    <b-form-group>
+      <b-form-input
+        placeholder="Enter your e-mail..."
+        type="email"
+        v-model="$v.form.email.$model"
+      ></b-form-input>
+    </b-form-group>
+    <b-form-group>
+      <b-form-input
+        placeholder="Enter your password..."
+        type="password"
+        v-model="$v.form.password.$model"
+      ></b-form-input>
+    </b-form-group>
     <b-button
       :class="{ 'bg-info': !$v.$invalid }"
       :disabled="$v.$invalid"
@@ -17,7 +24,6 @@
 </template>
 
 <script>
-import CustomInput from "../components/CustomInput";
 import { required } from "vuelidate/lib/validators";
 import formValidation from "../mixins/form-validation";
 import { validationMixin } from "vuelidate";
@@ -27,49 +33,21 @@ export default {
   data() {
     return {
       form: {
-        email: {
-          meta: {
-            type: "email",
-            placeholder: "Your e-mail...",
-            validations: {
-              required: {
-                rule: required,
-                errorMessage: "Required field"
-              }
-            }
-          },
-          value: ""
-        },
-        password: {
-          meta: {
-            type: "password",
-            placeholder: "Your password...",
-            validations: {
-              required: {
-                rule: required,
-                errorMessage: "Required field"
-              }
-            }
-          },
-          value: ""
-        }
+        email: "",
+        password: ""
       }
     };
   },
-  validations() {
-    return { form: this.setValidations() };
-  },
-  methods: {
-    async authorize() {
-      await auth().signInWithEmailAndPassword(
-        this.form.email.value,
-        this.form.password.value
-      );
-      this.$router.push("/");
+  validations: {
+    form: {
+      email: { required },
+      password: { required }
     }
   },
-  components: {
-    CustomInput
+  methods: {
+    authorize() {
+      auth().signInWithEmailAndPassword(this.form.email, this.form.password);
+    }
   },
   mixins: [validationMixin, formValidation]
 };
