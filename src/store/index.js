@@ -2,7 +2,7 @@ import Vue from "vue";
 import Vuex from "vuex";
 import guitars from "./modules/guitars";
 import cart from "./modules/cart";
-import user from "./modules/user";
+import users from "./modules/users";
 
 Vue.use(Vuex);
 
@@ -13,6 +13,6 @@ export default new Vuex.Store({
   modules: {
     guitars,
     cart,
-    user
+    users
   }
 });

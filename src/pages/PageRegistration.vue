@@ -23,8 +23,8 @@
 <script>
 import { validationMixin } from "vuelidate";
 import * as validators from "vuelidate/lib/validators";
-import formValidation from "../mixins/form-validation";
-import { auth } from "../configs/firebase";
+import { auth, usersRef } from "../configs/firebase";
+import { mapGetters } from "vuex";
 
 export default {
   data() {
@@ -60,6 +60,12 @@ export default {
             email: {
               rule: validators.email,
               errorMessage: "Invalid e-mail"
+            },
+            unique: {
+              rule(email) {
+                return !this.isEmailTaken(email)
+              },
+              errorMessage: "E-mail is already taken"
             }
           },
           value: ""
@@ -104,9 +110,20 @@ export default {
     };
   },
   validations() {
-    return { form: this.setValidations() };
+    const form = {};
+    const formFields = Object.entries(this.form);
+    formFields.forEach(([fieldName, field]) => {
+      const value = {};
+      const validations = Object.entries(field.validations);
+      validations.forEach(([validationName, validation]) => {
+        value[validationName] = validation.rule;
+      });
+      form[fieldName] = { value };
+    });
+    return { form };
   },
   computed: {
+    ...mapGetters(["currentUser", "isEmailTaken"]),
     validationState: () =>
       function(field) {
         const { $dirty, $error } = this.$v.form[field].value;
@@ -130,12 +147,18 @@ export default {
         this.form.email.value,
         this.form.password.value
       );
-      const currentUser = auth().currentUser;
-      await currentUser.updateProfile({ displayName: this.form.name.value });
+      await this.$store.dispatch("updateUserDisplayName", this.form.name.value);
       this.$router.push("/");
+      this.addNewUserToDatabase();
+    },
+    addNewUserToDatabase() {
+      usersRef.child(this.currentUser.uid).set({
+        name: this.currentUser.displayName,
+        email: this.currentUser.email
+      });
     }
   },
-  mixins: [validationMixin, formValidation]
+  mixins: [validationMixin]
 };
 </script>
 
