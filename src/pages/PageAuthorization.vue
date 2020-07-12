@@ -5,6 +5,7 @@
         placeholder="Enter your e-mail..."
         type="email"
         v-model="$v.form.email.$model"
+        :state="authState"
       ></b-form-input>
     </b-form-group>
     <b-form-group>
@@ -12,7 +13,11 @@
         placeholder="Enter your password..."
         type="password"
         v-model="$v.form.password.$model"
+        :state="authState"
       ></b-form-input>
+      <b-form-invalid-feedback :state="authState">
+        Invalid e-mail or password
+      </b-form-invalid-feedback>
     </b-form-group>
     <b-button
       :class="{ 'bg-info': !$v.$invalid }"
@@ -25,13 +30,13 @@
 
 <script>
 import { required } from "vuelidate/lib/validators";
-import formValidation from "../mixins/form-validation";
 import { validationMixin } from "vuelidate";
 import { auth } from "../configs/firebase";
 
 export default {
   data() {
     return {
+      authState: null,
       form: {
         email: "",
         password: ""
@@ -46,10 +51,14 @@ export default {
   },
   methods: {
     authorize() {
-      auth().signInWithEmailAndPassword(this.form.email, this.form.password);
+      this.authState = null;
+      auth()
+        .signInWithEmailAndPassword(this.form.email, this.form.password)
+        .then(() => this.$router.push("/"))
+        .catch(() => (this.authState = false))
     }
   },
-  mixins: [validationMixin, formValidation]
+  mixins: [validationMixin]
 };
 </script>
 
