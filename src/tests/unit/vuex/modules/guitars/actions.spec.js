@@ -27,7 +27,7 @@ describe("guitarsModule/actions", () => {
   });
 
   describe("fetchGuitars", () => {
-    test("commits pushToGuitars mutation for every received object", () => {
+    test("commits pushToGuitars mutation with every received object", () => {
       guitars.actions.fetchGuitars({ state, commit });
       expect(commit).toHaveBeenNthCalledWith(
         1,
