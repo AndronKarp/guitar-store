@@ -55,7 +55,7 @@ export default {
       auth()
         .signInWithEmailAndPassword(this.form.email, this.form.password)
         .then(() => this.$router.push("/"))
-        .catch(() => (this.authState = false))
+        .catch(() => (this.authState = false));
     }
   },
   mixins: [validationMixin]

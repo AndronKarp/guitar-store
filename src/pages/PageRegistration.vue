@@ -63,7 +63,7 @@ export default {
             },
             unique: {
               rule(email) {
-                return !this.isEmailTaken(email)
+                return !this.isEmailTaken(email);
               },
               errorMessage: "E-mail is already taken"
             }
