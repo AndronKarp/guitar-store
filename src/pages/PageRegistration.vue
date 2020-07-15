@@ -1,23 +1,29 @@
 <template>
-  <b-form @submit.prevent="register">
-    <b-form-group v-for="(field, index) in Object.keys(form)" :key="index">
-      <b-form-input
-        :placeholder="form[field].placeholder"
-        :type="form[field].type"
-        v-model="$v.form[field].value.$model"
-        :state="validationState(field)"
-      ></b-form-input>
-      <b-form-invalid-feedback :state="validationState(field)">
-        {{ validationErrorMessage(field) }}
-      </b-form-invalid-feedback>
-    </b-form-group>
-    <b-button
-      :class="{ 'bg-info': !$v.$invalid }"
-      :disabled="$v.$invalid"
-      type="submit"
-      >Sign Up</b-button
+  <div class="d-flex flex-fill justify-content-center align-items-center">
+    <b-form
+      @submit.prevent="register"
+      class="d-flex flex-column w-25"
+      style="min-width: 280px"
     >
-  </b-form>
+      <b-form-group v-for="(field, index) in Object.keys(form)" :key="index">
+        <b-form-input
+          :placeholder="form[field].placeholder"
+          :type="form[field].type"
+          v-model="$v.form[field].value.$model"
+          :state="validationState(field)"
+        ></b-form-input>
+        <b-form-invalid-feedback :state="validationState(field)">
+          {{ validationErrorMessage(field) }}
+        </b-form-invalid-feedback>
+      </b-form-group>
+      <b-button
+        :class="{ 'bg-info': !$v.$invalid }"
+        :disabled="$v.$invalid"
+        type="submit"
+        >Sign Up</b-button
+      >
+    </b-form>
+  </div>
 </template>
 
 <script>
