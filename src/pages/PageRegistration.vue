@@ -31,6 +31,7 @@ import { validationMixin } from "vuelidate";
 import * as validators from "vuelidate/lib/validators";
 import { auth, usersRef } from "../configs/firebase";
 import { mapGetters } from "vuex";
+import moveToHome from "../mixins/move-to-home";
 
 export default {
   data() {
@@ -154,7 +155,7 @@ export default {
         this.form.password.value
       );
       await this.$store.dispatch("updateUserDisplayName", this.form.name.value);
-      this.$router.push("/");
+      this.moveToHomePage();
       this.addNewUserToDatabase();
     },
     addNewUserToDatabase() {
@@ -164,7 +165,7 @@ export default {
       });
     }
   },
-  mixins: [validationMixin]
+  mixins: [validationMixin, moveToHome]
 };
 </script>
 

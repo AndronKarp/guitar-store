@@ -38,6 +38,7 @@
 import { required } from "vuelidate/lib/validators";
 import { validationMixin } from "vuelidate";
 import { auth } from "../configs/firebase";
+import moveToHome from "../mixins/move-to-home";
 
 export default {
   data() {
@@ -60,11 +61,11 @@ export default {
       this.authState = null;
       auth()
         .signInWithEmailAndPassword(this.form.email, this.form.password)
-        .then(() => this.$router.push("/"))
+        .then(() => this.moveToHomePage())
         .catch(() => (this.authState = false));
     }
   },
-  mixins: [validationMixin]
+  mixins: [validationMixin, moveToHome]
 };
 </script>
 
