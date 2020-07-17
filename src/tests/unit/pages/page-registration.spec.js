@@ -76,11 +76,44 @@ describe("PageRegistration.vue", () => {
         expect(wrapper.vm.validationErrorMessage(exampleField)).toBe(null);
       });
 
-      test("returns error message of broken validation if input data is invalid", () => {
+      test("returns error message of failed validation if input data is invalid", () => {
         exampleInput.setValue("a1");
         expect(wrapper.vm.validationErrorMessage(exampleField)).toBe(
           wrapper.vm.form[exampleField].validations.alpha.errorMessage
         );
+      });
+    });
+
+    describe("form submit button", () => {
+      let submitButton;
+      let inputs;
+
+      beforeEach(() => {
+        submitButton = wrapper.find("button");
+        inputs = wrapper.findAll("input");
+      });
+
+      test("disabled if form is empty", () => {
+        expect(submitButton.element.getAttribute("disabled")).toBe("disabled");
+      });
+
+      test("disabled if input data is invalid", () => {
+        inputs.setValue("invalid");
+        wrapper.vm.$nextTick(() => {
+          expect(submitButton.element.getAttribute("disabled")).toBe(
+            "disabled"
+          );
+        });
+      });
+
+      test("enabled if input data is valid", () => {
+        inputs.wrappers[0].setValue("Andrew");
+        inputs.wrappers[1].setValue("andrewkarp00@gmail.com");
+        inputs.wrappers[2].setValue("123456");
+        inputs.wrappers[3].setValue("123456");
+        wrapper.vm.$nextTick(() => {
+          expect(submitButton.element.getAttribute("disabled")).toBe(null);
+        });
       });
     });
   });
