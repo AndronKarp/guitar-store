@@ -150,7 +150,7 @@ export default {
           !this.$v.form[field].value[name] &&
             errors.push(validation.errorMessage);
         });
-        return errors[errors.length - 1];
+        return errors.length ? errors[errors.length - 1] : null;
       }
   },
   methods: {
