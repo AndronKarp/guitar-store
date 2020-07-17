@@ -7,6 +7,7 @@
     >
       <b-form-group v-for="(field, index) in Object.keys(form)" :key="index">
         <b-form-input
+          :id="form[field].id"
           :placeholder="form[field].placeholder"
           :type="form[field].type"
           v-model="$v.form[field].value.$model"
@@ -38,6 +39,7 @@ export default {
     return {
       form: {
         name: {
+          id: "name",
           type: "text",
           placeholder: "Your name...",
           validations: {
@@ -57,6 +59,7 @@ export default {
           value: ""
         },
         email: {
+          id: "email",
           type: "email",
           placeholder: "Your e-mail...",
           validations: {
@@ -78,6 +81,7 @@ export default {
           value: ""
         },
         password: {
+          id: "password",
           type: "password",
           placeholder: "Your password...",
           validations: {
@@ -97,6 +101,7 @@ export default {
           value: ""
         },
         confirmPassword: {
+          id: "confirm-password",
           type: "password",
           placeholder: "Confirm password...",
           validations: {
