@@ -1,0 +1,27 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`PageAuthorization.vue renders authorization form 1`] = `
+<div class="d-flex flex-fill justify-content-center align-items-center">
+  <form class="d-flex flex-column w-25" style="min-width: 280px;">
+    <fieldset class="form-group" id="__BVID__10">
+      <!---->
+      <div tabindex="-1" role="group" class="bv-no-focus-ring"><input type="email" placeholder="Enter your e-mail..." class="form-control" id="__BVID__11">
+        <!---->
+        <!---->
+        <!---->
+      </div>
+    </fieldset>
+    <fieldset class="form-group" id="__BVID__12">
+      <!---->
+      <div tabindex="-1" role="group" class="bv-no-focus-ring"><input type="password" placeholder="Enter your password..." class="form-control" id="__BVID__13">
+        <div class="invalid-feedback">
+          Invalid e-mail or password
+        </div>
+        <!---->
+        <!---->
+        <!---->
+      </div>
+    </fieldset> <button type="submit" disabled="disabled" class="btn btn-secondary disabled">Sign In</button>
+  </form>
+</div>
+`;
