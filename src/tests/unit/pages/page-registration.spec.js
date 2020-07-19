@@ -4,6 +4,20 @@ import { BootstrapVue } from "bootstrap-vue";
 import Vuelidate from "vuelidate";
 import Vuex from "vuex";
 import users from "@/store/modules/users";
+import { auth, usersRef } from "@/configs/firebase";
+
+jest.mock("@/configs/firebase", () => {
+  return {
+    auth: jest.fn().mockReturnValue({
+      createUserWithEmailAndPassword: jest.fn()
+    }),
+    usersRef: {
+      child: jest.fn().mockReturnValue({
+        set: jest.fn()
+      })
+    }
+  };
+});
 
 const localVue = createLocalVue();
 
@@ -16,16 +30,27 @@ describe("PageRegistration.vue", () => {
   let state;
   let actions;
   let store;
+  let $router;
 
   beforeEach(() => {
-    state = { currentUser: null, users: [{ email: "e-mail" }] };
+    state = {
+      currentUser: { uid: "uid", email: "email", displayName: "name" },
+      users: [{ email: "e-mail" }]
+    };
     actions = { updateUserDisplayName: jest.fn() };
     store = new Vuex.Store({
       state,
       getters: users.getters,
       actions
     });
-    wrapper = mount(PageRegistration, { localVue, store });
+    $router = { push: jest.fn() };
+    wrapper = mount(PageRegistration, {
+      localVue,
+      store,
+      mocks: {
+        $router
+      }
+    });
   });
 
   test("renders registration form", () => {
@@ -113,6 +138,51 @@ describe("PageRegistration.vue", () => {
         inputs.wrappers[3].setValue("123456");
         wrapper.vm.$nextTick(() => {
           expect(submitButton.element.getAttribute("disabled")).toBe(null);
+        });
+      });
+    });
+
+    describe("methods", () => {
+      describe("register", () => {
+        test("creates a new user", async () => {
+          await wrapper.vm.register();
+          expect(auth().createUserWithEmailAndPassword).toHaveBeenCalledWith(
+            wrapper.vm.form.email.value,
+            wrapper.vm.form.password.value
+          );
+        });
+
+        test("invokes updateUserDisplayName action", async () => {
+          const dispatch = jest.spyOn(wrapper.vm.$store, "dispatch");
+          await wrapper.vm.register();
+          expect(dispatch).toHaveBeenCalledWith(
+            "updateUserDisplayName",
+            wrapper.vm.form.name.value
+          );
+        });
+
+        test("invokes moveToHomePage method", async () => {
+          const moveToHomePage = jest.spyOn(wrapper.vm, "moveToHomePage");
+          await wrapper.vm.register();
+          expect(moveToHomePage).toHaveBeenCalled();
+        });
+
+        test("invokes addNewUserToDatabase method", async () => {
+          const addNewUserToDatabase = jest.spyOn(
+            wrapper.vm,
+            "addNewUserToDatabase"
+          );
+          await wrapper.vm.register();
+          expect(addNewUserToDatabase).toHaveBeenCalled();
+        });
+      });
+
+      test("addNewUserToDatabase adds created user to database", () => {
+        wrapper.vm.addNewUserToDatabase();
+        expect(usersRef.child).toHaveBeenCalledWith(wrapper.vm.currentUser.uid);
+        expect(usersRef.child().set).toHaveBeenCalledWith({
+          name: wrapper.vm.currentUser.displayName,
+          email: wrapper.vm.currentUser.email
         });
       });
     });
