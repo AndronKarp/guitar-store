@@ -1,24 +1,17 @@
 <template>
-  <div id="app">
-    <TheNavbar />
-    <b-container
-      class="d-flex flex-column flex-fill mt-3"
-      :class="{ 'justify-content-center': !areGuitarsFetched }"
-      fluid
-    >
-      <router-view v-if="areGuitarsFetched"></router-view>
-      <b-spinner
-        v-else
-        class="align-self-center"
-        label="Loading..."
-        variant="info"
-      ></b-spinner>
-    </b-container>
+  <div id="app" :class="{ 'justify-content-center': !areGuitarsFetched }">
+    <MainLayout v-if="areGuitarsFetched" />
+    <b-spinner
+      v-else
+      class="align-self-center"
+      label="Loading..."
+      variant="info"
+    ></b-spinner>
   </div>
 </template>
 
 <script>
-import TheNavbar from "./components/TheNavbar";
+import MainLayout from "./layouts/MainLayout";
 import { mapGetters } from "vuex";
 
 export default {
@@ -31,12 +24,16 @@ export default {
     this.$store.dispatch("fetchGuitars");
   },
   components: {
-    TheNavbar
+    MainLayout
   }
 };
 </script>
 
 <style lang="scss">
+html,
+body {
+  height: 100%;
+}
 #app {
   min-height: 100vh;
   height: 100%;
