@@ -11,25 +11,25 @@
         <b-nav-item>Contact Us!</b-nav-item>
       </b-navbar-nav>
 
-      <b-navbar-nav v-if="currentUser" class="ml-auto">
-        <b-nav-item to="/cart">
-          <b-icon-cart4></b-icon-cart4>
-        </b-nav-item>
-        <b-dropdown :text="currentUser.displayName" variant="info">
-          <b-dropdown-item>Profile</b-dropdown-item>
-          <b-dropdown-item @click="signOut">Sign Out</b-dropdown-item>
-        </b-dropdown>
-      </b-navbar-nav>
+      <b-navbar-nav class="ml-auto">
+        <template v-if="currentUser">
+          <b-nav-item to="/cart">
+            <b-icon-cart4></b-icon-cart4>
+          </b-nav-item>
+          <b-dropdown :text="currentUser.displayName" variant="info">
+            <b-dropdown-item>Profile</b-dropdown-item>
+            <b-dropdown-item @click="signOut">Sign Out</b-dropdown-item>
+          </b-dropdown>
+        </template>
 
-      <b-navbar-nav v-else class="ml-auto">
-        <b-nav-item>
-          <b-button to="/registration" variant="info">Sign Up</b-button>
-        </b-nav-item>
-        <b-nav-item>
-          <b-button to="/authorization" variant="outline-light"
+        <template v-else>
+          <b-button class="mr-2" to="/registration" squared variant="info"
+            >Sign Up</b-button
+          >
+          <b-button to="/authorization" squared variant="outline-light"
             >Sign In</b-button
           >
-        </b-nav-item>
+        </template>
       </b-navbar-nav>
     </b-collapse>
   </b-navbar>
