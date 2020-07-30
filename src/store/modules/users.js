@@ -23,7 +23,7 @@ export default {
   },
   actions: {
     setAuthObserver(store) {
-      auth().onAuthStateChanged(user => {
+      auth.onAuthStateChanged(user => {
         store.commit("setCurrentUser", user);
       });
     },

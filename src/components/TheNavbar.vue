@@ -44,8 +44,8 @@ export default {
     ...mapGetters(["currentUser"])
   },
   methods: {
-    signOut() {
-      auth().signOut();
+    async signOut() {
+      await auth.signOut();
       this.$router.push("/authorization");
     }
   }

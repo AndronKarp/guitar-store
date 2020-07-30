@@ -59,7 +59,7 @@ export default {
   methods: {
     authorize() {
       this.authState = null;
-      auth()
+      auth
         .signInWithEmailAndPassword(this.form.email, this.form.password)
         .then(() => this.moveToHomePage())
         .catch(() => (this.authState = false));

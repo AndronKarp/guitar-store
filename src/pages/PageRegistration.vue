@@ -155,7 +155,7 @@ export default {
   },
   methods: {
     async register() {
-      await auth().createUserWithEmailAndPassword(
+      await auth.createUserWithEmailAndPassword(
         this.form.email.value,
         this.form.password.value
       );

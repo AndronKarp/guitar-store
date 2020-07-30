@@ -1,5 +1,6 @@
 import Vue from "vue";
 import VueRouter from "vue-router";
+import { auth } from "../configs/firebase";
 
 Vue.use(VueRouter);
 
@@ -22,6 +23,7 @@ const routes = [
   {
     path: "/cart",
     name: "PageShoppingCart",
+    meta: { requiresAuth: true },
     component: () =>
       import(
         /* webpackChunkName: "shopping-cart" */ "../pages/PageShoppingCart"
@@ -30,12 +32,14 @@ const routes = [
   {
     path: "/registration",
     name: "PageRegistration",
+    meta: { requiresUnauthorizedUser: true },
     component: () =>
       import(/* webpackChunkName: "registration" */ "../pages/PageRegistration")
   },
   {
     path: "/authorization",
     name: "PageAuthorization",
+    meta: { requiresUnauthorizedUser: true },
     component: () =>
       import(
         /* webpackChunkName: "authorization" */ "../pages/PageAuthorization"
@@ -46,6 +50,19 @@ const routes = [
 const router = new VueRouter({
   mode: "history",
   routes
+});
+
+router.beforeEach(async (to, from, next) => {
+  const routeRequiresAuth = to.matched.some(record => record.meta.requiresAuth);
+  const routeRequiresUnauthorizedUser = to.matched.some(
+    record => record.meta.requiresUnauthorizedUser
+  );
+  const userIsAuthorized = await auth.getCurrentUser();
+  if (userIsAuthorized) {
+    routeRequiresUnauthorizedUser ? next("/") : next();
+  } else {
+    routeRequiresAuth ? next("/authorization") : next();
+  }
 });
 
 export default router;
