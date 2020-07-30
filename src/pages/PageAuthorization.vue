@@ -13,6 +13,7 @@
           :state="authState"
         ></b-form-input>
       </b-form-group>
+
       <b-form-group>
         <b-form-input
           placeholder="Enter your password..."
@@ -24,12 +25,20 @@
           Invalid e-mail or password
         </b-form-invalid-feedback>
       </b-form-group>
+
       <b-button
         :class="{ 'bg-info': !$v.$invalid }"
         :disabled="$v.$invalid"
         type="submit"
-        >Sign In</b-button
       >
+        <b-spinner
+          v-if="isFormSubmitting"
+          label="Loading..."
+          variant="light"
+          small
+        ></b-spinner
+        ><template v-else>Sign Up</template>
+      </b-button>
     </b-form>
   </div>
 </template>
@@ -43,11 +52,12 @@ import moveToHome from "../mixins/move-to-home";
 export default {
   data() {
     return {
-      authState: null,
       form: {
         email: "",
         password: ""
-      }
+      },
+      authState: null,
+      isFormSubmitting: false
     };
   },
   validations: {
@@ -59,10 +69,12 @@ export default {
   methods: {
     authorize() {
       this.authState = null;
+      this.isFormSubmitting = true;
       auth
         .signInWithEmailAndPassword(this.form.email, this.form.password)
         .then(() => this.moveToHomePage())
-        .catch(() => (this.authState = false));
+        .catch(() => (this.authState = false))
+        .finally(() => (this.isFormSubmitting = false));
     }
   },
   mixins: [validationMixin, moveToHome]

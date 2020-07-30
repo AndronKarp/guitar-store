@@ -17,12 +17,20 @@
           {{ validationErrorMessage(field) }}
         </b-form-invalid-feedback>
       </b-form-group>
+
       <b-button
         :class="{ 'bg-info': !$v.$invalid }"
         :disabled="$v.$invalid"
         type="submit"
-        >Sign Up</b-button
       >
+        <b-spinner
+          v-if="isFormSubmitting"
+          label="Loading..."
+          variant="light"
+          small
+        ></b-spinner>
+        <template v-else>Sign Up</template>
+      </b-button>
     </b-form>
   </div>
 </template>
@@ -118,7 +126,8 @@ export default {
           },
           value: ""
         }
-      }
+      },
+      isFormSubmitting: false
     };
   },
   validations() {
@@ -155,11 +164,13 @@ export default {
   },
   methods: {
     async register() {
+      this.isFormSubmitting = true;
       await auth.createUserWithEmailAndPassword(
         this.form.email.value,
         this.form.password.value
       );
       await this.$store.dispatch("updateUserDisplayName", this.form.name.value);
+      this.isFormSubmitting = false;
       this.moveToHomePage();
       this.addNewUserToDatabase();
     },
