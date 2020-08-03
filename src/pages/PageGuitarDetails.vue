@@ -24,6 +24,7 @@
 
 <script>
 import { mapGetters } from "vuex";
+import { guitarsRef } from "../configs/firebase";
 
 export default {
   props: {
@@ -44,10 +45,9 @@ export default {
   methods: {
     addToCart(guitar) {
       this.$store.dispatch("addToCart", guitar);
-      this.$store.dispatch("updateGuitarQuantity", {
-        guitarId: guitar.id,
-        extraQuantity: -1
-      });
+      guitarsRef
+        .child(guitar.id)
+        .update({ quantity: this.guitar.quantity - 1 });
     }
   }
 };

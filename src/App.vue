@@ -22,6 +22,7 @@ export default {
     this.$store.dispatch("fetchUsers");
     this.$store.dispatch("setAuthObserver");
     this.$store.dispatch("fetchGuitars");
+    this.$store.dispatch("setGuitarsRefChildChangedObserver");
   },
   components: {
     MainLayout

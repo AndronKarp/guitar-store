@@ -38,11 +38,13 @@ export default {
         store.commit("setAreGuitarsFetchedStatusToTrue");
       });
     },
-    updateGuitarQuantity({ state, commit }, { guitarId, extraQuantity }) {
-      const guitar = state.guitars.find(guitar => guitar.id === guitarId);
-      commit("setGuitarQuantity", {
-        guitar,
-        value: guitar.quantity + extraQuantity
+    setGuitarsRefChildChangedObserver({ state, commit }) {
+      guitarsRef.on("child_changed", snapshot => {
+        const updatedGuitar = state.guitars.find(
+          guitar => guitar.id === snapshot.key
+        );
+        const { quantity } = snapshot.val();
+        commit("setGuitarQuantity", { guitar: updatedGuitar, value: quantity });
       });
     }
   }
