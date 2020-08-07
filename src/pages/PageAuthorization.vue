@@ -37,7 +37,7 @@
           variant="light"
           small
         ></b-spinner
-        ><template v-else>Sign Up</template>
+        ><template v-else>Sign In</template>
       </b-button>
     </b-form>
   </div>
