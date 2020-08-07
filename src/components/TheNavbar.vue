@@ -23,7 +23,7 @@
         </template>
 
         <template v-else>
-          <b-button class="mr-2" to="/registration" squared variant="info"
+          <b-button class="mr-2" to="/join" squared variant="info"
             >Sign Up</b-button
           >
           <b-button to="/login" squared variant="outline-light"
