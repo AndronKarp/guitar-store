@@ -45,6 +45,7 @@ export default {
   },
   methods: {
     async signOut() {
+      this.$store.dispatch("resetCart", this.currentUser.uid);
       await auth.signOut();
       this.$router.push("/authorization");
     }

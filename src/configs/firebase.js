@@ -15,8 +15,9 @@ firebase.initializeApp(config);
 
 const database = firebase.database();
 const guitarsRef = database.ref("guitars");
-const auth = firebase.auth();
 const usersRef = database.ref("users");
+const cartsRef = database.ref("carts");
+const auth = firebase.auth();
 auth.getCurrentUser = () => {
   return new Promise((resolve, reject) => {
     const unsubscribe = firebase.auth().onAuthStateChanged(user => {
@@ -26,4 +27,4 @@ auth.getCurrentUser = () => {
   });
 };
 
-export { guitarsRef, auth, usersRef };
+export { guitarsRef, auth, usersRef, cartsRef };

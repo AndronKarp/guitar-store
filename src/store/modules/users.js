@@ -1,4 +1,4 @@
-import { auth, usersRef } from "@/configs/firebase";
+import { usersRef } from "@/configs/firebase";
 
 export default {
   state: {
@@ -22,10 +22,8 @@ export default {
     }
   },
   actions: {
-    setAuthObserver(store) {
-      auth.onAuthStateChanged(user => {
-        store.commit("setCurrentUser", user);
-      });
+    updateCurrentUser(store, user) {
+      store.commit("setCurrentUser", user);
     },
     async updateUserDisplayName({ state, commit }, displayName) {
       await state.currentUser.updateProfile({ displayName });

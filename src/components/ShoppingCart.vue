@@ -22,6 +22,7 @@
 
 <script>
 import { mapGetters } from "vuex";
+import { cartsRef } from "../configs/firebase";
 
 export default {
   data() {
@@ -39,15 +40,14 @@ export default {
     };
   },
   computed: {
-    ...mapGetters(["cart", "cartTotal"])
+    ...mapGetters(["cart", "cartTotal", "currentUser"])
   },
   methods: {
     removeFromCart(cartItem) {
-      this.$store.dispatch("removeCartItem", cartItem);
-      this.$store.dispatch("updateGuitarQuantity", {
-        guitarId: cartItem.id,
-        extraQuantity: cartItem.quantity
-      });
+      cartsRef
+        .child(this.currentUser.uid)
+        .child(cartItem.id)
+        .remove();
     }
   }
 };

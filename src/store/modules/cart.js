@@ -1,3 +1,5 @@
+import { cartsRef } from "@/configs/firebase";
+
 export default {
   state: {
     cart: []
@@ -20,31 +22,42 @@ export default {
     pushToCart(state, guitar) {
       state.cart.push(guitar);
     },
-    incrementQuantity(state, cartItem) {
-      cartItem.quantity++;
+    setCartItemQuantity(state, { cartItemId, quantity }) {
+      const cartItem = state.cart.find(cartItem => cartItem.id === cartItemId);
+      cartItem.quantity = quantity;
     },
     removeCartItemFromCart(state, cartItemIndex) {
       state.cart.splice(cartItemIndex, 1);
+    },
+    clearCart(state) {
+      state.cart = [];
     }
   },
   actions: {
-    addToCart({ state, commit }, { id, brand, model, price }) {
-      const cartItem = state.cart.find(cartItem => cartItem.id === id);
-      cartItem
-        ? commit("incrementQuantity", cartItem)
-        : commit("pushToCart", {
-            id,
-            brand,
-            model,
-            price,
-            quantity: 1
-          });
+    setCartChildAddedListener(store, userId) {
+      cartsRef.child(userId).on("child_added", snapshot => {
+        store.commit("pushToCart", { ...snapshot.val(), id: snapshot.key });
+      });
     },
-    removeCartItem({ state, commit }, { id }) {
-      const cartItemIndex = state.cart.findIndex(
-        cartItem => cartItem.id === id
-      );
-      commit("removeCartItemFromCart", cartItemIndex);
+    setCartChildUpdatedListener(store, userId) {
+      cartsRef.child(userId).on("child_changed", snapshot => {
+        store.commit("setCartItemQuantity", {
+          cartItemId: snapshot.key,
+          quantity: snapshot.val().quantity
+        });
+      });
+    },
+    setCartChildRemovedListener({ state, commit }, userId) {
+      cartsRef.child(userId).on("child_removed", snapshot => {
+        const removedCartItemIndex = state.cart.findIndex(
+          cartItem => cartItem.id === snapshot.key
+        );
+        commit("removeCartItemFromCart", removedCartItemIndex);
+      });
+    },
+    resetCart(store, userId) {
+      cartsRef.child(userId).off();
+      store.commit("clearCart");
     }
   }
 };
