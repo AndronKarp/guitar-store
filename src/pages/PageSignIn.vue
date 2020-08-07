@@ -3,7 +3,7 @@
     <b-form
       class="d-flex flex-column w-25"
       style="min-width: 280px"
-      @submit.prevent="authorize"
+      @submit.prevent="signIn"
     >
       <b-form-group>
         <b-form-input
@@ -67,7 +67,7 @@ export default {
     }
   },
   methods: {
-    authorize() {
+    signIn() {
       this.authState = null;
       this.isFormSubmitting = true;
       auth

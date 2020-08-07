@@ -26,7 +26,7 @@
           <b-button class="mr-2" to="/registration" squared variant="info"
             >Sign Up</b-button
           >
-          <b-button to="/authorization" squared variant="outline-light"
+          <b-button to="/login" squared variant="outline-light"
             >Sign In</b-button
           >
         </template>
@@ -47,7 +47,7 @@ export default {
     async signOut() {
       this.$store.dispatch("resetCart", this.currentUser.uid);
       await auth.signOut();
-      this.$router.push("/authorization");
+      this.$router.push("/login");
     }
   }
 };
