@@ -29,13 +29,12 @@ export default {
     setAuthObserver() {
       auth.onAuthStateChanged(user => {
         this.$store.dispatch("updateCurrentUser", user);
-        if (user) this.fetchCart(user.uid);
+        if (user) this.loadUserCart({ cartId: user.uid });
       });
     },
-    fetchCart(userId) {
-      this.$store.dispatch("setCartChildAddedListener", userId);
-      this.$store.dispatch("setCartChildUpdatedListener", userId);
-      this.$store.dispatch("setCartChildRemovedListener", userId);
+    loadUserCart({ cartId }) {
+      this.$store.dispatch("updateCartId", cartId);
+      this.$store.dispatch("fetchCart");
     }
   },
   components: {

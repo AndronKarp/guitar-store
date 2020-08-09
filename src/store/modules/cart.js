@@ -2,7 +2,8 @@ import { cartsRef } from "@/configs/firebase";
 
 export default {
   state: {
-    cart: []
+    cart: [],
+    cartId: null
   },
   getters: {
     cart(state) {
@@ -19,44 +20,61 @@ export default {
     }
   },
   mutations: {
+    setCartId(state, value) {
+      state.cartId = value;
+    },
     pushToCart(state, guitar) {
       state.cart.push(guitar);
     },
-    setCartItemQuantity(state, { cartItemId, quantity }) {
+    setCartItemQuantity(state, { cartItemId, value }) {
       const cartItem = state.cart.find(cartItem => cartItem.id === cartItemId);
-      cartItem.quantity = quantity;
+      cartItem.quantity = value;
     },
-    removeCartItemFromCart(state, cartItemIndex) {
-      state.cart.splice(cartItemIndex, 1);
+    removeCartItemFromCart(state, index) {
+      state.cart.splice(index, 1);
     },
     clearCart(state) {
       state.cart = [];
     }
   },
   actions: {
-    setCartChildAddedListener(store, userId) {
-      cartsRef.child(userId).on("child_added", snapshot => {
-        store.commit("pushToCart", { ...snapshot.val(), id: snapshot.key });
-      });
+    updateCartId(store, value) {
+      store.commit("setCartId", value);
     },
-    setCartChildUpdatedListener(store, userId) {
-      cartsRef.child(userId).on("child_changed", snapshot => {
-        store.commit("setCartItemQuantity", {
-          cartItemId: snapshot.key,
-          quantity: snapshot.val().quantity
+    fetchCart({ state, commit }) {
+      cartsRef.child(state.cartId).once("value", snapshot => {
+        snapshot.forEach(childSnapshot => {
+          commit("pushToCart", {
+            ...childSnapshot.val(),
+            id: childSnapshot.key
+          });
         });
       });
     },
-    setCartChildRemovedListener({ state, commit }, userId) {
-      cartsRef.child(userId).on("child_removed", snapshot => {
-        const removedCartItemIndex = state.cart.findIndex(
-          cartItem => cartItem.id === snapshot.key
-        );
-        commit("removeCartItemFromCart", removedCartItemIndex);
-      });
+    async addToCart({ state, commit }, { id, brand, model, price }) {
+      const cartItem = { brand, model, price, quantity: 1 };
+      await cartsRef
+        .child(state.cartId)
+        .child(id)
+        .set(cartItem);
+      commit("pushToCart", { ...cartItem, id });
     },
-    resetCart(store, userId) {
-      cartsRef.child(userId).off();
+    async updateCartItemQuantity({ state, commit }, { cartItemId, value }) {
+      await cartsRef
+        .child(state.cartId)
+        .child(cartItemId)
+        .update({ quantity: value });
+      commit("setCartItemQuantity", { cartItemId, value });
+    },
+    removeFromCart({ state, commit }, cartItem) {
+      cartsRef
+        .child(state.cartId)
+        .child(cartItem.id)
+        .remove();
+      const cartItemIndex = state.cart.indexOf(cartItem);
+      commit("removeCartItemFromCart", cartItemIndex);
+    },
+    resetCart(store) {
       store.commit("clearCart");
     }
   }

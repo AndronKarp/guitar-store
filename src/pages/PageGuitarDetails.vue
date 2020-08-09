@@ -24,7 +24,7 @@
 
 <script>
 import { mapGetters } from "vuex";
-import { guitarsRef, cartsRef } from "../configs/firebase";
+import { guitarsRef } from "../configs/firebase";
 
 export default {
   props: {
@@ -34,7 +34,7 @@ export default {
     }
   },
   computed: {
-    ...mapGetters(["guitars", "currentUser", "cart"]),
+    ...mapGetters(["guitars", "cart"]),
     guitar() {
       return this.guitars.find(guitar => guitar.slug === this.slug);
     },
@@ -43,18 +43,15 @@ export default {
     }
   },
   methods: {
-    addToCart({ id, brand, model, price }) {
-      const cartItem = this.cart.find(cartItem => cartItem.id === id);
+    async addToCart(guitar) {
+      const cartItem = this.cart.find(cartItem => cartItem.id === guitar.id);
       cartItem
-        ? cartsRef
-            .child(this.currentUser.uid)
-            .child(cartItem.id)
-            .update({ quantity: cartItem.quantity + 1 })
-        : cartsRef
-            .child(this.currentUser.uid)
-            .child(id)
-            .set({ brand, model, price, quantity: 1 });
-      guitarsRef.child(id).update({ quantity: this.guitar.quantity - 1 });
+        ? await this.$store.dispatch("updateCartItemQuantity", {
+            cartItemId: cartItem.id,
+            value: cartItem.quantity + 1
+          })
+        : await this.$store.dispatch("addToCart", guitar);
+      guitarsRef.child(guitar.id).update({ quantity: guitar.quantity - 1 });
     }
   }
 };
