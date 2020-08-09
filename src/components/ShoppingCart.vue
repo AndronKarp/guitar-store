@@ -22,6 +22,7 @@
 
 <script>
 import { mapGetters } from "vuex";
+import { guitarsRef } from "../configs/firebase";
 
 export default {
   data() {
@@ -39,11 +40,15 @@ export default {
     };
   },
   computed: {
-    ...mapGetters(["cart", "cartTotal"])
+    ...mapGetters(["cart", "cartTotal", "guitars"])
   },
   methods: {
     removeFromCart(cartItem) {
       this.$store.dispatch("removeFromCart", cartItem);
+      const guitar = this.guitars.find(guitar => guitar.id === cartItem.id);
+      guitarsRef
+        .child(guitar.id)
+        .update({ quantity: guitar.quantity + cartItem.quantity });
     }
   }
 };
