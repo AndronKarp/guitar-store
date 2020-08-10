@@ -38,7 +38,7 @@
 <script>
 import { validationMixin } from "vuelidate";
 import * as validators from "vuelidate/lib/validators";
-import { auth, usersRef } from "../configs/firebase";
+import { auth, unavailableEmailsRef } from "../configs/firebase";
 import { mapGetters } from "vuex";
 import moveToHome from "../mixins/move-to-home";
 
@@ -127,7 +127,8 @@ export default {
           value: ""
         }
       },
-      isFormSubmitting: false
+      isFormSubmitting: false,
+      unavailableEmails: []
     };
   },
   validations() {
@@ -143,8 +144,38 @@ export default {
     });
     return { form };
   },
+  created() {
+    this.fetchUnavailableEmails();
+  },
+  methods: {
+    fetchUnavailableEmails() {
+      unavailableEmailsRef.on("child_added", snapshot => {
+        this.unavailableEmails.push(snapshot.val());
+      });
+    },
+    async signUp() {
+      this.isFormSubmitting = true;
+      await auth.createUserWithEmailAndPassword(
+        this.form.email.value,
+        this.form.password.value
+      );
+      await this.$store.dispatch("updateUserDisplayName", this.form.name.value);
+      this.isFormSubmitting = false;
+      this.moveToHomePage();
+      this.saveNewUnavailableEmail();
+    },
+    saveNewUnavailableEmail() {
+      unavailableEmailsRef.push({
+        value: this.currentUser.email
+      });
+    }
+  },
   computed: {
-    ...mapGetters(["currentUser", "isEmailTaken"]),
+    ...mapGetters(["currentUser"]),
+    isEmailTaken: () =>
+      function(email) {
+        return !!this.unavailableEmails.find(item => item.value === email);
+      },
     validationState: () =>
       function(field) {
         const { $dirty, $error } = this.$v.form[field].value;
@@ -161,25 +192,6 @@ export default {
         });
         return errors.length ? errors[errors.length - 1] : null;
       }
-  },
-  methods: {
-    async signUp() {
-      this.isFormSubmitting = true;
-      await auth.createUserWithEmailAndPassword(
-        this.form.email.value,
-        this.form.password.value
-      );
-      await this.$store.dispatch("updateUserDisplayName", this.form.name.value);
-      this.isFormSubmitting = false;
-      this.moveToHomePage();
-      this.addNewUserToDatabase();
-    },
-    addNewUserToDatabase() {
-      usersRef.child(this.currentUser.uid).set({
-        name: this.currentUser.displayName,
-        email: this.currentUser.email
-      });
-    }
   },
   mixins: [validationMixin, moveToHome]
 };

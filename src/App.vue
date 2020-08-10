@@ -21,7 +21,6 @@ export default {
   },
   created() {
     this.setAuthObserver();
-    this.$store.dispatch("fetchUsers");
     this.$store.dispatch("fetchGuitars");
     this.$store.dispatch("setGuitarsRefChildChangedObserver");
   },
