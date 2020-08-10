@@ -15,7 +15,7 @@ firebase.initializeApp(config);
 
 const database = firebase.database();
 const guitarsRef = database.ref("guitars");
-const usersRef = database.ref("users");
+const unavailableEmailsRef = database.ref("unavailable-emails");
 const cartsRef = database.ref("carts");
 const auth = firebase.auth();
 auth.getCurrentUser = () => {
@@ -27,4 +27,4 @@ auth.getCurrentUser = () => {
   });
 };
 
-export { guitarsRef, auth, usersRef, cartsRef };
+export { guitarsRef, auth, unavailableEmailsRef, cartsRef };
