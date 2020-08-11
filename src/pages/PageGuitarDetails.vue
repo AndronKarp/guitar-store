@@ -27,6 +27,7 @@
 <script>
 import { mapGetters } from "vuex";
 import { guitarsRef } from "../configs/firebase";
+import notifications from "../mixins/notifications";
 
 export default {
   props: {
@@ -53,9 +54,14 @@ export default {
             value: cartItem.quantity + 1
           })
         : await this.$store.dispatch("addToCart", guitar);
+      this.showNotification({
+        message: `${guitar.brand} ${guitar.model} added to cart!`,
+        type: "success"
+      });
       guitarsRef.child(guitar.id).update({ quantity: guitar.quantity - 1 });
     }
-  }
+  },
+  mixins: [notifications]
 };
 </script>
 

@@ -23,6 +23,7 @@
 <script>
 import { mapGetters } from "vuex";
 import { guitarsRef } from "../configs/firebase";
+import notifications from "../mixins/notifications";
 
 export default {
   data() {
@@ -46,12 +47,17 @@ export default {
   methods: {
     removeFromCart(cartItem) {
       this.$store.dispatch("removeFromCart", cartItem);
+      this.showNotification({
+        message: `${cartItem.brand} ${cartItem.model} removed from cart!`,
+        type: "warning"
+      });
       const guitar = this.guitars.find(guitar => guitar.id === cartItem.id);
       guitarsRef
         .child(guitar.id)
         .update({ quantity: guitar.quantity + cartItem.quantity });
     }
-  }
+  },
+  mixins: [notifications]
 };
 </script>
 
