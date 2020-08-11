@@ -13,11 +13,13 @@
       <p class="text-success" v-if="isGuitarInStock(guitar)">In Stock</p>
       <p class="text-danger" v-else>Out Of Stock</p>
       <b-button
+        v-if="currentUser"
         :class="{ 'bg-info': isGuitarInStock(guitar) }"
         :disabled="!isGuitarInStock(guitar)"
         @click="addToCart(guitar)"
         >Add To Cart</b-button
       >
+      <p class="text-muted" v-else>You must be signed in to make purchases!</p>
     </b-col>
   </b-row>
 </template>
@@ -34,7 +36,7 @@ export default {
     }
   },
   computed: {
-    ...mapGetters(["guitars", "cart"]),
+    ...mapGetters(["guitars", "cart", "currentUser"]),
     guitar() {
       return this.guitars.find(guitar => guitar.slug === this.slug);
     },
