@@ -185,7 +185,6 @@ export default {
     validationErrorMessage: () =>
       function(field) {
         const errors = [];
-        if (!this.$v.form[field].value.$dirty) return errors;
         const validations = Object.entries(this.form[field].validations);
         validations.forEach(([name, validation]) => {
           !this.$v.form[field].value[name] &&
