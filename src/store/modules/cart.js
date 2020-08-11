@@ -33,7 +33,7 @@ export default {
     removeCartItemFromCart(state, index) {
       state.cart.splice(index, 1);
     },
-    clearCart(state) {
+    resetCart(state) {
       state.cart = [];
     }
   },
@@ -74,8 +74,8 @@ export default {
       const cartItemIndex = state.cart.indexOf(cartItem);
       commit("removeCartItemFromCart", cartItemIndex);
     },
-    resetCart(store) {
-      store.commit("clearCart");
+    clearCart(store) {
+      store.commit("resetCart");
     }
   }
 };

@@ -45,9 +45,9 @@ export default {
   },
   methods: {
     async signOut() {
-      this.$store.dispatch("resetCart");
       await auth.signOut();
       this.$router.push("/login");
+      this.$store.dispatch("clearCart");
     }
   }
 };
