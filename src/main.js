@@ -5,6 +5,7 @@ import router from "./router";
 import store from "./store";
 import BootstrapVue from "./plugins/bootstrap-vue";
 import VueCurrencyFilter from "./plugins/vue-currency-filter";
+import "native-toast/dist/native-toast.css";
 
 Vue.config.productionTip = false;
 

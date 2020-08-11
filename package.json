@@ -14,6 +14,7 @@
     "bootstrap-vue": "^2.15.0",
     "core-js": "^3.6.5",
     "firebase": "^7.15.1",
+    "native-toast": "^2.0.0",
     "register-service-worker": "^1.7.1",
     "vue": "^2.6.11",
     "vue-currency-filter": "^5.1.0",
