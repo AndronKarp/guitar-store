@@ -47,7 +47,7 @@
 import { required } from "vuelidate/lib/validators";
 import { validationMixin } from "vuelidate";
 import { auth } from "../configs/firebase";
-import moveToHome from "../mixins/move-to-home";
+import moveToPage from "../mixins/move-to-page";
 
 export default {
   data() {
@@ -72,12 +72,12 @@ export default {
       this.isFormSubmitting = true;
       auth
         .signInWithEmailAndPassword(this.form.email, this.form.password)
-        .then(() => this.moveToHomePage())
+        .then(() => this.moveTo("PageGuitarStore"))
         .catch(() => (this.authState = false))
         .finally(() => (this.isFormSubmitting = false));
     }
   },
-  mixins: [validationMixin, moveToHome]
+  mixins: [validationMixin, moveToPage]
 };
 </script>
 

@@ -38,6 +38,7 @@
 <script>
 import { mapGetters } from "vuex";
 import { auth } from "../configs/firebase";
+import moveToPage from "../mixins/move-to-page";
 
 export default {
   computed: {
@@ -46,10 +47,11 @@ export default {
   methods: {
     async signOut() {
       await auth.signOut();
-      this.$router.push("/login");
+      this.moveTo("PageSignIn");
       this.$store.dispatch("clearCart");
     }
-  }
+  },
+  mixins: [moveToPage]
 };
 </script>
 

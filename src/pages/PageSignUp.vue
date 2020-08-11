@@ -40,7 +40,7 @@ import { validationMixin } from "vuelidate";
 import * as validators from "vuelidate/lib/validators";
 import { auth, unavailableEmailsRef } from "../configs/firebase";
 import { mapGetters } from "vuex";
-import moveToHome from "../mixins/move-to-home";
+import moveToPage from "../mixins/move-to-page";
 
 export default {
   data() {
@@ -161,7 +161,7 @@ export default {
       );
       await this.$store.dispatch("updateUserDisplayName", this.form.name.value);
       this.isFormSubmitting = false;
-      this.moveToHomePage();
+      this.moveToPage("PageGuitarStore");
       this.saveNewUnavailableEmail();
     },
     saveNewUnavailableEmail() {
@@ -193,7 +193,7 @@ export default {
         return errors.length ? errors[errors.length - 1] : null;
       }
   },
-  mixins: [validationMixin, moveToHome]
+  mixins: [validationMixin, moveToPage]
 };
 </script>
 
