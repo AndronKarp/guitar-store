@@ -59,7 +59,7 @@ router.beforeEach(async (to, from, next) => {
   if (userIsAuthorized) {
     routeRequiresUnauthorizedUser ? next("/") : next();
   } else {
-    routeRequiresAuth ? next("/authorization") : next();
+    routeRequiresAuth ? next("/login") : next();
   }
 });
 
