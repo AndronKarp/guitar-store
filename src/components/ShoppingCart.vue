@@ -34,6 +34,7 @@ export default {
         "quantity",
         {
           key: "price",
+          label: "Unit price",
           tdClass: "d-flex justify-content-between"
         }
       ]

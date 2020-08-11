@@ -1,12 +1,10 @@
 <template>
-  <b-row cols="1">
-    <b-col>
-      <ShoppingCart v-show="!isCartEmpty" />
-      <b-alert :show="isCartEmpty" variant="info">
-        <p class="mb-0">The cart is empty for now!</p>
-      </b-alert>
-    </b-col>
-  </b-row>
+  <div class="w-100">
+    <ShoppingCart v-show="!isCartEmpty" />
+    <b-alert :show="isCartEmpty" variant="info">
+      <p class="mb-0">The cart is empty for now!</p>
+    </b-alert>
+  </div>
 </template>
 
 <script>
