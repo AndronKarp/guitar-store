@@ -1,6 +1,7 @@
 <template>
   <div class="d-flex flex-fill justify-content-center align-items-center">
     <b-form
+      novalidate
       @submit.prevent="signUp"
       class="d-flex flex-column w-25"
       style="min-width: 280px"

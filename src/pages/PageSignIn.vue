@@ -1,12 +1,14 @@
 <template>
   <div class="d-flex flex-fill justify-content-center align-items-center">
     <b-form
+      novalidate
       class="d-flex flex-column w-25"
       style="min-width: 280px"
       @submit.prevent="signIn"
     >
       <b-form-group>
         <b-form-input
+          novalidate
           placeholder="Enter your e-mail..."
           type="email"
           v-model="$v.form.email.$model"
