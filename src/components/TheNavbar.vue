@@ -13,7 +13,6 @@
             <b-icon-cart4></b-icon-cart4>
           </b-nav-item>
           <b-dropdown :text="currentUser.displayName" variant="info">
-            <b-dropdown-item>Profile</b-dropdown-item>
             <b-dropdown-item @click="signOut">Sign Out</b-dropdown-item>
           </b-dropdown>
         </template>
