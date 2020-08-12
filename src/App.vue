@@ -1,24 +1,17 @@
 <template>
-  <div id="app" :class="{ 'justify-content-center': !areGuitarsFetched }">
-    <MainLayout v-if="areGuitarsFetched" />
-    <b-spinner
-      v-else
-      class="align-self-center"
-      label="Loading..."
-      variant="info"
-    ></b-spinner>
+  <div id="app">
+    <TheNavbar />
+    <b-container class="mt-3 flex-fill d-flex" fluid>
+      <router-view></router-view>
+    </b-container>
   </div>
 </template>
 
 <script>
-import MainLayout from "./layouts/MainLayout";
-import { mapGetters } from "vuex";
+import TheNavbar from "./components/TheNavbar";
 import { auth } from "./configs/firebase";
 
 export default {
-  computed: {
-    ...mapGetters(["areGuitarsFetched"])
-  },
   created() {
     this.setAuthObserver();
     this.$store.dispatch("fetchGuitars");
@@ -37,7 +30,7 @@ export default {
     }
   },
   components: {
-    MainLayout
+    TheNavbar
   }
 };
 </script>
