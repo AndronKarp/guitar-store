@@ -2,8 +2,9 @@ import { cartsRef } from "@/configs/firebase";
 
 export default {
   state: {
+    cartId: null,
     cart: [],
-    cartId: null
+    isCartFetched: false
   },
   getters: {
     cart(state) {
@@ -15,8 +16,8 @@ export default {
         0
       );
     },
-    isCartEmpty(state) {
-      return !state.cart.length;
+    isCartFetched(state) {
+      return state.isCartFetched;
     }
   },
   mutations: {
@@ -25,6 +26,9 @@ export default {
     },
     pushToCart(state, guitar) {
       state.cart.push(guitar);
+    },
+    setIsCartFetchedStatusToTrue(state) {
+      state.isCartFetched = true;
     },
     setCartItemQuantity(state, { cartItemId, value }) {
       const cartItem = state.cart.find(cartItem => cartItem.id === cartItemId);
@@ -49,6 +53,7 @@ export default {
             id: childSnapshot.key
           });
         });
+        commit("setIsCartFetchedStatusToTrue");
       });
     },
     async addToCart({ state, commit }, { id, brand, model, price }) {
