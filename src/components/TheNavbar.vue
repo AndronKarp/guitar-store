@@ -7,10 +7,6 @@
     <b-navbar-toggle target="nav-collapse"></b-navbar-toggle>
 
     <b-collapse id="nav-collapse" is-nav>
-      <b-navbar-nav>
-        <b-nav-item>Contact Us!</b-nav-item>
-      </b-navbar-nav>
-
       <b-navbar-nav class="ml-auto">
         <template v-if="currentUser">
           <b-nav-item to="/cart">
