@@ -1,6 +1,6 @@
 <template>
   <div
-    class="d-flex w-100 h-100"
+    class="d-flex flex-fill"
     :class="{ 'justify-content-center': !isCartFetched }"
   >
     <ShoppingCart v-if="isCartFetched" />

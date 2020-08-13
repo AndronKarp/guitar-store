@@ -1,6 +1,6 @@
 <template>
   <div
-    class="d-flex flex-column justify-content-center align-items-center w-100"
+    class="d-flex flex-column justify-content-center align-items-center flex-fill"
   >
     <h1 class="display-2">404</h1>
     <div class="d-flex flex-column flex-sm-row text-center">

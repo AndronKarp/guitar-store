@@ -1,5 +1,5 @@
 <template>
-  <b-navbar type="dark" variant="info">
+  <b-navbar sticky type="dark" variant="info">
     <b-navbar-brand class="guitar-store-page-link" to="/"
       >Guitar Store</b-navbar-brand
     >
