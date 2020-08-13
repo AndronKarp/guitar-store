@@ -42,6 +42,12 @@ const routes = [
     meta: { requiresUnauthorizedUser: true },
     component: () =>
       import(/* webpackChunkName: "sign-in" */ "../pages/PageSignIn")
+  },
+  {
+    path: "*",
+    name: "PageNotFound",
+    component: () =>
+      import(/* webpackChunkName: "not-found" */ "../pages/PageNotFound")
   }
 ];
 
