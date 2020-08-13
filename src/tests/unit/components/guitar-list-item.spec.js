@@ -35,7 +35,7 @@ describe("GuitarListItem.vue", () => {
   test("router link has correct path", () => {
     const routerLinkStub = wrapper.findComponent(RouterLinkStub);
     const path = routerLinkStub.props().to.name;
-    expect(path).toBe("PageGuitarDescription");
+    expect(path).toBe("PageGuitarDetails");
   });
 
   test("router link passes slug param to the route", () => {

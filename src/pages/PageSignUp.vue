@@ -40,7 +40,6 @@
 import { validationMixin } from "vuelidate";
 import * as validators from "vuelidate/lib/validators";
 import { auth, unavailableEmailsRef } from "../configs/firebase";
-import { mapGetters } from "vuex";
 import moveToPage from "../mixins/move-to-page";
 
 export default {
@@ -162,17 +161,16 @@ export default {
       );
       await this.$store.dispatch("updateUserDisplayName", this.form.name.value);
       this.isFormSubmitting = false;
-      this.moveToPage("PageGuitarStore");
+      this.moveTo("PageGuitarStore");
       this.saveNewUnavailableEmail();
     },
     saveNewUnavailableEmail() {
       unavailableEmailsRef.push({
-        value: this.currentUser.email
+        value: this.form.email.value
       });
     }
   },
   computed: {
-    ...mapGetters(["currentUser"]),
     isEmailTaken: () =>
       function(email) {
         return !!this.unavailableEmails.find(item => item.value === email);

@@ -1,46 +1,46 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`PageRegistration.vue renders registration form 1`] = `
+exports[`PageSignUp.vue renders registration form 1`] = `
 <div class="d-flex flex-fill justify-content-center align-items-center">
-  <form class="d-flex flex-column w-25" style="min-width: 280px;">
-    <fieldset class="form-group" id="__BVID__21">
+  <form novalidate="novalidate" class="d-flex flex-column w-25" style="min-width: 280px;">
+    <fieldset class="form-group" id="__BVID__29">
       <!---->
       <div tabindex="-1" role="group" class="bv-no-focus-ring"><input id="name" type="text" placeholder="Your name..." class="form-control">
         <div class="invalid-feedback">
-          []
+          Required field
         </div>
         <!---->
         <!---->
         <!---->
       </div>
     </fieldset>
-    <fieldset class="form-group" id="__BVID__23">
+    <fieldset class="form-group" id="__BVID__31">
       <!---->
       <div tabindex="-1" role="group" class="bv-no-focus-ring"><input id="email" type="email" placeholder="Your e-mail..." class="form-control">
         <div class="invalid-feedback">
-          []
+          Required field
         </div>
         <!---->
         <!---->
         <!---->
       </div>
     </fieldset>
-    <fieldset class="form-group" id="__BVID__25">
+    <fieldset class="form-group" id="__BVID__33">
       <!---->
       <div tabindex="-1" role="group" class="bv-no-focus-ring"><input id="password" type="password" placeholder="Your password..." class="form-control">
         <div class="invalid-feedback">
-          []
+          Required field
         </div>
         <!---->
         <!---->
         <!---->
       </div>
     </fieldset>
-    <fieldset class="form-group" id="__BVID__27">
+    <fieldset class="form-group" id="__BVID__35">
       <!---->
       <div tabindex="-1" role="group" class="bv-no-focus-ring"><input id="confirm-password" type="password" placeholder="Confirm password..." class="form-control">
         <div class="invalid-feedback">
-          []
+          Required field
         </div>
         <!---->
         <!---->

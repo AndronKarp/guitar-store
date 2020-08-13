@@ -1,0 +1,13 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`PageGuitarStore.vue renders guitar store after guitars were fetched 1`] = `
+<div class="d-flex w-100 h-100">
+  <guitarlist-stub></guitarlist-stub>
+</div>
+`;
+
+exports[`PageGuitarStore.vue renders loading spinner while guitars are fetching 1`] = `
+<div class="d-flex w-100 h-100 justify-content-center">
+  <b-spinner-stub type="border" label="Loading..." variant="info" role="status" tag="span" class="align-self-center"></b-spinner-stub>
+</div>
+`;

@@ -3,7 +3,7 @@
 exports[`App.vue renders app 1`] = `
 <div id="app">
   <thenavbar-stub></thenavbar-stub>
-  <b-container-stub tag="div" fluid="true" class="d-flex flex-column flex-fill mt-3">
+  <b-container-stub tag="div" fluid="true" class="mt-3 flex-fill d-flex">
     <router-view-stub></router-view-stub>
   </b-container-stub>
 </div>

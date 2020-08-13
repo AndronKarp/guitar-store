@@ -1,11 +1,11 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`PageAuthorization.vue renders authorization form 1`] = `
+exports[`PageSignIn.vue renders sign in form 1`] = `
 <div class="d-flex flex-fill justify-content-center align-items-center">
-  <form class="d-flex flex-column w-25" style="min-width: 280px;">
+  <form novalidate="novalidate" class="d-flex flex-column w-25" style="min-width: 280px;">
     <fieldset class="form-group" id="__BVID__10">
       <!---->
-      <div tabindex="-1" role="group" class="bv-no-focus-ring"><input type="email" placeholder="Enter your e-mail..." class="form-control" id="__BVID__11">
+      <div tabindex="-1" role="group" class="bv-no-focus-ring"><input type="email" placeholder="Enter your e-mail..." class="form-control" novalidate="novalidate" id="__BVID__11">
         <!---->
         <!---->
         <!---->

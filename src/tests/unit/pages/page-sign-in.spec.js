@@ -1,34 +1,22 @@
 import { mount, createLocalVue } from "@vue/test-utils";
-import PageAuthorization from "@/pages/PageAuthorization";
+import PageSignIn from "@/pages/PageSignIn";
 import BootstrapVue from "bootstrap-vue";
 import { auth } from "@/configs/firebase";
-
-jest.mock("@/configs/firebase", () => {
-  return {
-    auth: jest.fn().mockReturnValue({
-      signInWithEmailAndPassword: jest
-        .fn()
-        .mockResolvedValueOnce()
-        .mockResolvedValueOnce()
-        .mockRejectedValueOnce()
-    })
-  };
-});
 
 const localVue = createLocalVue();
 
 localVue.use(BootstrapVue);
 
-describe("PageAuthorization.vue", () => {
-  let wrapper;
+describe("PageSignIn.vue", () => {
   let $router;
+  let wrapper;
 
   beforeEach(() => {
     $router = { push: jest.fn() };
-    wrapper = mount(PageAuthorization, { localVue, mocks: { $router } });
+    wrapper = mount(PageSignIn, { localVue, mocks: { $router } });
   });
 
-  test("renders authorization form", () => {
+  test("renders sign in form", () => {
     expect(wrapper).toMatchSnapshot();
   });
 
@@ -54,23 +42,31 @@ describe("PageAuthorization.vue", () => {
   });
 
   describe("methods", () => {
-    describe("authorize", () => {
-      test("authorizes user", async () => {
-        await wrapper.vm.authorize();
-        expect(auth().signInWithEmailAndPassword).toHaveBeenCalledWith(
+    describe("signIn", () => {
+      beforeAll(() => {
+        auth.signInWithEmailAndPassword = jest
+          .fn()
+          .mockResolvedValueOnce()
+          .mockResolvedValueOnce()
+          .mockRejectedValueOnce();
+      });
+
+      test("invokes auth.signInWithEmailAndPassword function", async () => {
+        await wrapper.vm.signIn();
+        expect(auth.signInWithEmailAndPassword).toHaveBeenCalledWith(
           wrapper.vm.form.email,
           wrapper.vm.form.password
         );
       });
 
-      test("invokes moveToHomePage method after successful authorization", async () => {
-        const moveToHomePage = jest.spyOn(wrapper.vm, "moveToHomePage");
-        await wrapper.vm.authorize();
-        expect(moveToHomePage).toHaveBeenCalled();
+      test("invokes moveTo method after successful authorization", async () => {
+        const moveTo = jest.spyOn(wrapper.vm, "moveTo");
+        await wrapper.vm.signIn();
+        expect(moveTo).toHaveBeenCalledWith("PageGuitarStore");
       });
 
       test("sets authState value to false if authorization is failed", async () => {
-        await wrapper.vm.authorize();
+        await wrapper.vm.signIn();
         wrapper.vm.$nextTick(() => {
           expect(wrapper.vm.authState).toBe(false);
         });

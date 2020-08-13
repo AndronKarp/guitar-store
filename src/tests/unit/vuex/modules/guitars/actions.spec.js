@@ -8,7 +8,15 @@ jest.mock("@/configs/firebase", () => {
   ];
   return {
     guitarsRef: {
-      once: jest.fn((eventType, callback) => callback(snapshot))
+      once: jest.fn((eventType, callback) => callback(snapshot)),
+      on: jest.fn((eventType, callback) =>
+        callback({
+          key: 0,
+          val: () => {
+            return { quantity: 2 };
+          }
+        })
+      )
     }
   };
 });
@@ -40,7 +48,7 @@ describe("guitarsModule/actions", () => {
         expect.objectContaining({ id: 1, name: "data" })
       );
     });
-    test("commits setAreGuitarsFetchedStatusToTrue mutation after all objects has been received", () => {
+    test("commits setAreGuitarsFetchedStatusToTrue mutation after all objects have been received", () => {
       guitars.actions.fetchGuitars({ state, commit });
       expect(commit).toHaveBeenLastCalledWith(
         "setAreGuitarsFetchedStatusToTrue"
@@ -48,16 +56,11 @@ describe("guitarsModule/actions", () => {
     });
   });
 
-  test("updateGuitarQuantity commits setGuitarQuantity mutation", () => {
-    const guitarId = existingGuitarsItem.id;
-    const extraQuantity = 1;
-    guitars.actions.updateGuitarQuantity(
-      { state, commit },
-      { guitarId, extraQuantity }
+  test("setGuitarsRefChildChangedObserver sets child changed observer on guitars reference in database which commits setGuitarQuantity mutation with every received object", () => {
+    guitars.actions.setGuitarsRefChildChangedObserver({ state, commit });
+    expect(commit).toHaveBeenCalledWith(
+      "setGuitarQuantity",
+      expect.objectContaining({ guitar: existingGuitarsItem, value: 2 })
     );
-    expect(commit).toHaveBeenCalledWith("setGuitarQuantity", {
-      guitar: existingGuitarsItem,
-      value: 2
-    });
   });
 });

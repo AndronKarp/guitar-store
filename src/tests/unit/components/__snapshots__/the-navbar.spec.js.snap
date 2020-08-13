@@ -1,21 +1,30 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`TheNavbar.vue renders navigation bar 1`] = `
+exports[`TheNavbar.vue renders navigation with cart icon and dropdown for authorized user 1`] = `
 <b-navbar-stub tag="nav" type="dark" variant="info">
   <b-navbar-brand-stub tag="div" target="_self" to="/" class="guitar-store-page-link">Guitar Store</b-navbar-brand-stub>
   <b-navbar-toggle-stub label="Toggle navigation" target="nav-collapse"></b-navbar-toggle-stub>
   <b-collapse-stub id="nav-collapse" isnav="true" tag="div">
-    <b-navbar-nav-stub tag="ul">
-      <b-nav-item-stub target="_self">Contact Us!</b-nav-item-stub>
-    </b-navbar-nav-stub>
     <b-navbar-nav-stub tag="ul" class="ml-auto">
-      <b-nav-item-stub target="_self" to="/cart" right="" class="cart-page-link d-flex align-items-center">
-        <b-icon-stub icon="cart4" fontscale="1" scale="1" rotate="0" shifth="0" shiftv="0"></b-icon-stub>
+      <b-nav-item-stub target="_self" to="/cart" class="shopping-cart-page-link">
+        <b-icon-cart4-stub fontscale="1" scale="1" rotate="0" shifth="0" shiftv="0"></b-icon-cart4-stub>
       </b-nav-item-stub>
-      <b-nav-item-dropdown-stub right="true" offset="0" boundary="scrollParent" text="" role="menu">
-        <b-dropdown-item-stub target="_self">Profile</b-dropdown-item-stub>
+      <b-dropdown-stub offset="0" boundary="scrollParent" text="John" variant="info" toggletag="button" toggletext="Toggle Dropdown" splitbuttontype="button" role="menu">
         <b-dropdown-item-stub target="_self">Sign Out</b-dropdown-item-stub>
-      </b-nav-item-dropdown-stub>
+      </b-dropdown-stub>
+    </b-navbar-nav-stub>
+  </b-collapse-stub>
+</b-navbar-stub>
+`;
+
+exports[`TheNavbar.vue renders navigation with sign up and sign in buttons for unauthorized user 1`] = `
+<b-navbar-stub tag="nav" type="dark" variant="info">
+  <b-navbar-brand-stub tag="div" target="_self" to="/" class="guitar-store-page-link">Guitar Store</b-navbar-brand-stub>
+  <b-navbar-toggle-stub label="Toggle navigation" target="nav-collapse"></b-navbar-toggle-stub>
+  <b-collapse-stub id="nav-collapse" isnav="true" tag="div">
+    <b-navbar-nav-stub tag="ul" class="ml-auto">
+      <b-button-stub variant="info" type="button" tag="button" squared="true" target="_self" to="/join" class="sign-up-button mr-2">Sign Up</b-button-stub>
+      <b-button-stub variant="outline-light" type="button" tag="button" squared="true" target="_self" to="/login" class="sign-in-button">Sign In</b-button-stub>
     </b-navbar-nav-stub>
   </b-collapse-stub>
 </b-navbar-stub>

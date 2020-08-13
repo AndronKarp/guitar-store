@@ -9,7 +9,7 @@
     <b-collapse id="nav-collapse" is-nav>
       <b-navbar-nav class="ml-auto">
         <template v-if="currentUser">
-          <b-nav-item to="/cart">
+          <b-nav-item class="shopping-cart-page-link" to="/cart">
             <b-icon-cart4></b-icon-cart4>
           </b-nav-item>
           <b-dropdown :text="currentUser.displayName" variant="info">
@@ -18,10 +18,18 @@
         </template>
 
         <template v-else>
-          <b-button class="mr-2" to="/join" squared variant="info"
+          <b-button
+            class="sign-up-button mr-2"
+            to="/join"
+            squared
+            variant="info"
             >Sign Up</b-button
           >
-          <b-button to="/login" squared variant="outline-light"
+          <b-button
+            class="sign-in-button"
+            to="/login"
+            squared
+            variant="outline-light"
             >Sign In</b-button
           >
         </template>
