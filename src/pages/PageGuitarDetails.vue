@@ -1,13 +1,14 @@
 <template>
   <b-row class="mb-3" cols-lg="2" cols="1">
-    <b-col class="mb-3 mb-lg-0">
+    <b-col xl="5" class="mb-2 mb-lg-0">
       <b-img
         fluid-grow
         :src="require(`../assets/${guitar.model}.png`)"
         :alt="guitar.model"
+        rounded
       />
     </b-col>
-    <b-col>
+    <b-col xl="7">
       <h4>{{ guitar.brand }} {{ guitar.model }}</h4>
       <p>{{ guitar.description }}</p>
       <p class="text-success" v-if="isGuitarInStock(guitar)">In Stock</p>
