@@ -16,16 +16,16 @@
             type="text"
             id="card-number-input"
             placeholder="Valid card number"
-            :formatter="onlyNumbersFormatter"
             :state="validationState('cardNumber')"
+            v-cleave="{ creditCard: true }"
           ></b-form-input>
-          <template #append>
+          <b-input-group-append>
             <b-input-group-text>
               <b-icon-credit-card></b-icon-credit-card>
             </b-input-group-text>
-          </template>
+          </b-input-group-append>
+          <b-form-invalid-feedback>Invalid card number</b-form-invalid-feedback>
         </b-input-group>
-        <b-form-invalid-feedback>Invalid card number</b-form-invalid-feedback>
       </b-form-group>
 
       <b-form-group>
@@ -47,8 +47,13 @@
           type="text"
           id="cvc-input"
           placeholder="CVC"
-          :formatter="onlyNumbersFormatter"
           :state="validationState('cvc')"
+          v-cleave="{
+            numeral: true,
+            numeralPositiveOnly: true,
+            delimiter: '',
+            numeralIntegerScale: 4
+          }"
         ></b-form-input>
         <b-form-invalid-feedback>Invalid CV code</b-form-invalid-feedback>
       </b-form-group>
@@ -67,9 +72,10 @@
 import notifications from "../mixins/notifications";
 import { validationMixin } from "vuelidate";
 import { mapGetters } from "vuex";
-import { required, maxLength, minLength } from "vuelidate/lib/validators";
+import { required, minLength } from "vuelidate/lib/validators";
 import { valid } from "../validators/card-num-validator";
 import { currentOrNextMonthSelected } from "../validators/month-validator";
+import Cleave from "cleave.js";
 
 export default {
   props: ["visible"],
@@ -91,8 +97,7 @@ export default {
     form: {
       cardNumber: {
         required,
-        maxLength: maxLength(19),
-        minLength: minLength(13),
+        minLength: minLength(16),
         valid
       },
       expDate: {
@@ -101,8 +106,21 @@ export default {
       },
       cvc: {
         required,
-        minLength: minLength(3),
-        maxLength: maxLength(4)
+        minLength: minLength(3)
+      }
+    }
+  },
+  directives: {
+    cleave: {
+      inserted: (el, binding) => {
+        el.cleave = new Cleave(el, binding.value || {});
+      },
+      update: el => {
+        const event = new Event("input", { bubbles: true });
+        setTimeout(function() {
+          el.value = el.cleave.properties.result;
+          el.dispatchEvent(event);
+        }, 100);
       }
     }
   },
@@ -117,9 +135,6 @@ export default {
   methods: {
     onChange(value) {
       this.$emit("change", value);
-    },
-    onlyNumbersFormatter(value) {
-      return value.replace(/^([^0-9]*)$/, "");
     },
     getCurrentMonth() {
       return new Date().toISOString().slice(0, 7);
