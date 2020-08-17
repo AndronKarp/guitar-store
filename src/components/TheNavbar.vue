@@ -51,7 +51,7 @@ export default {
     async signOut() {
       await auth.signOut();
       this.moveTo("PageSignIn");
-      this.$store.dispatch("clearCart");
+      this.$store.dispatch("discardCart");
     }
   },
   mixins: [moveToPage]

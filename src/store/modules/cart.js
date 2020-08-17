@@ -74,16 +74,22 @@ export default {
         .update({ quantity: value });
       commit("setCartItemQuantity", { cartItemId, value });
     },
-    removeFromCart({ state, commit }, cartItem) {
-      cartsRef
+    async removeFromCart({ state, commit }, cartItem) {
+      await cartsRef
         .child(state.cartId)
         .child(cartItem.id)
         .remove();
       const cartItemIndex = state.cart.indexOf(cartItem);
       commit("removeCartItemFromCart", cartItemIndex);
     },
-    clearCart(store) {
+    discardCart(store) {
       store.commit("resetCart");
+    },
+    clearCart({ state, commit, dispatch }) {
+      state.cart.forEach(
+        async cartItem => await dispatch("removeFromCart", cartItem)
+      );
+      commit("resetCart");
     }
   }
 };

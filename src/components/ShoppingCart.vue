@@ -1,23 +1,28 @@
 <template>
-  <b-table borderless responsive :items="cart" :fields="fields">
-    <template v-slot:cell(№)="data">
-      {{ data.index + 1 }}
-    </template>
-    <template v-slot:cell(price)="data">
-      <p class="mb-0">{{ data.item.price | currency }}</p>
-      <b-icon
-        @click="removeFromCart(data.item)"
-        class="ml-3"
-        style="cursor: pointer; width: 24px; height: 24px"
-        icon="x"
-      ></b-icon>
-    </template>
-    <template v-slot:custom-foot>
-      <b-tr>
-        <b-th colspan="5">Total: {{ cartTotal | currency }}</b-th>
-      </b-tr>
-    </template>
-  </b-table>
+  <div class="d-flex flex-column w-100">
+    <b-table borderless responsive :items="cart" :fields="fields">
+      <template v-slot:cell(№)="data">
+        {{ data.index + 1 }}
+      </template>
+      <template v-slot:cell(price)="data">
+        <p class="mb-0">{{ data.item.price | currency }}</p>
+        <b-icon
+          @click="removeFromCart(data.item)"
+          class="ml-3"
+          style="cursor: pointer; width: 24px; height: 24px"
+          icon="x"
+        ></b-icon>
+      </template>
+      <template v-slot:custom-foot>
+        <b-tr>
+          <b-th colspan="5">Total: {{ cartTotal | currency }}</b-th>
+        </b-tr>
+      </template>
+    </b-table>
+    <b-button class="align-self-center" @click="purchase" variant="info"
+      >Purchase</b-button
+    >
+  </div>
 </template>
 
 <script>
@@ -55,6 +60,9 @@ export default {
       guitarsRef
         .child(guitar.id)
         .update({ quantity: guitar.quantity + cartItem.quantity });
+    },
+    purchase() {
+      this.$emit("onPurchaseButtonClick");
     }
   },
   mixins: [notifications]
