@@ -1,17 +1,21 @@
 <template>
-  <div
-    class="d-flex flex-column justify-content-center align-items-center flex-fill"
-  >
-    <h1 class="display-2">404</h1>
-    <div class="d-flex flex-column flex-sm-row text-center">
-      <p class="mr-1">Looks like this page doesn't exist.</p>
-      <b-link to="/">Back To Home</b-link>
-    </div>
+  <div class="d-flex justify-content-center align-items-center w-100">
+    <custom-alert>
+      <h1 class="display-3">404</h1>
+      <p>Looks like this page doesn't exist.</p>
+      <b-link to="/">Back to home</b-link>
+    </custom-alert>
   </div>
 </template>
 
 <script>
-export default {};
+import CustomAlert from "../components/CustomAlert";
+
+export default {
+  components: {
+    CustomAlert
+  }
+};
 </script>
 
 <style></style>

@@ -18,6 +18,9 @@ export default {
     },
     isCartFetched(state) {
       return state.isCartFetched;
+    },
+    isCartEmpty(state) {
+      return state.cart.length === 0;
     }
   },
   mutations: {
