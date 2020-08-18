@@ -1,10 +1,14 @@
-const valid = cardNumber => {
+export const valid = cardNumber => {
   let digits = Array.from(cardNumber.split(""), Number);
   const lastDigit = digits.pop();
-  digits = digits.map((digit, index) => (index % 2 ? digit : digit * 2));
-  digits = digits.map(digit => (digit > 9 ? digit - 9 : digit));
-  const sum = digits.reduce((sum, digit) => sum + digit, lastDigit);
-  return sum % 10 === 0;
+  digits = doubleEachOddElement(digits);
+  digits = decreaseTwoDigitValuesByNine(digits);
+  const sum = digits.reduce((sum, digit) => sum + digit, 0);
+  return (sum + lastDigit) % 10 === 0;
 };
 
-export { valid };
+const doubleEachOddElement = arr =>
+  arr.map((element, index) => (index % 2 ? element : element * 2));
+
+const decreaseTwoDigitValuesByNine = arr =>
+  arr.map(element => (element > 9 ? element - 9 : element));
