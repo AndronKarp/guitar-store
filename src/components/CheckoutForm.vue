@@ -17,7 +17,7 @@
             id="card-number-input"
             placeholder="Valid card number"
             :state="validationState('cardNumber')"
-            v-cleave="{ creditCard: true }"
+            :formatter="formatCardNumber"
           ></b-form-input>
           <b-input-group-append>
             <b-input-group-text>
@@ -48,12 +48,7 @@
           id="cvc-input"
           placeholder="CVC"
           :state="validationState('cvc')"
-          v-cleave="{
-            numeral: true,
-            numeralPositiveOnly: true,
-            delimiter: '',
-            numeralIntegerScale: 4
-          }"
+          :formatter="formatCVC"
         ></b-form-input>
         <b-form-invalid-feedback>Invalid CV code</b-form-invalid-feedback>
       </b-form-group>
@@ -75,7 +70,7 @@ import { mapGetters } from "vuex";
 import { required, minLength } from "vuelidate/lib/validators";
 import { valid } from "../validators/card-num-validator";
 import { currentOrNextMonthSelected } from "../validators/month-validator";
-import Cleave from "cleave.js";
+import { removeNonNumbers, formatWithSpaces } from "../utils/formatters";
 
 export default {
   props: ["visible"],
@@ -97,7 +92,7 @@ export default {
     form: {
       cardNumber: {
         required,
-        minLength: minLength(16),
+        minLength: minLength(19),
         valid
       },
       expDate: {
@@ -107,20 +102,6 @@ export default {
       cvc: {
         required,
         minLength: minLength(3)
-      }
-    }
-  },
-  directives: {
-    cleave: {
-      inserted: (el, binding) => {
-        el.cleave = new Cleave(el, binding.value || {});
-      },
-      update: el => {
-        const event = new Event("input", { bubbles: true });
-        setTimeout(function() {
-          el.value = el.cleave.properties.result;
-          el.dispatchEvent(event);
-        }, 100);
       }
     }
   },
@@ -136,8 +117,17 @@ export default {
     onChange(value) {
       this.$emit("change", value);
     },
+    formatCardNumber(value) {
+      if (value.length > 19) return value.slice(0, -1);
+      const numbers = removeNonNumbers(value);
+      return formatWithSpaces(numbers, 4);
+    },
     getCurrentMonth() {
       return new Date().toISOString().slice(0, 7);
+    },
+    formatCVC(value) {
+      if (value.length > 3) return value.slice(0, -1);
+      return removeNonNumbers(value);
     },
     pay() {
       this.isFormSubmitting = true;
