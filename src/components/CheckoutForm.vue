@@ -68,8 +68,7 @@ import notifications from "../mixins/notifications";
 import { validationMixin } from "vuelidate";
 import { mapGetters } from "vuex";
 import { required, minLength } from "vuelidate/lib/validators";
-import { valid } from "../validators/card-num-validator";
-import { currentOrNextMonthSelected } from "../validators/month-validator";
+import { luhnValid, currentOrNextMonthSelected } from "../utils/validators";
 import { removeNonNumbers, formatWithSpaces } from "../utils/formatters";
 
 export default {
@@ -93,7 +92,7 @@ export default {
       cardNumber: {
         required,
         minLength: minLength(19),
-        valid
+        luhnValid
       },
       expDate: {
         required,
